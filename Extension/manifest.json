@@ -3,6 +3,16 @@
     "name": "Steam Prices POC",
     "version": "0.1",
     "description": "Shows historical low and current best price from other stores on Steam pages (IsThereAnyDeal data).",
+    "icons": {
+        "16": "img/icon16.png",
+        "32": "img/icon32.png",
+        "48": "img/icon48.png",
+        "64": "img/icon64.png",
+        "96": "img/icon96.png",
+        "128": "img/icon128.png",
+        "256": "img/icon256.png",
+        "512": "img/icon512.png"
+    },
     "background": {
         "scripts": ["background.js"]
     },
