@@ -122,3 +122,11 @@
     max-width: 340px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.5);
 }
+
+a.spp_source {
+    text-decoration: none;
+}
+
+a.spp_source:hover {
+    color: #66c0f4;
+}

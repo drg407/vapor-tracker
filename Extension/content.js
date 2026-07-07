@@ -32,7 +32,7 @@
     if (data?.needsKey) {
         const setup = document.createElement("div");
         setup.className = "spp_panel";
-        setup.innerHTML = `<div class="spp_title">Vapor Tracker <span class="spp_source">via IsThereAnyDeal</span></div>
+        setup.innerHTML = `<div class="spp_title">Vapor Tracker <a class="spp_source" href="https://isthereanydeal.com" target="_blank" rel="noopener">via IsThereAnyDeal</a></div>
             <div class="spp_row"><span class="spp_setup">Add your free IsThereAnyDeal API key to see price history —
             click the Vapor Tracker icon in the toolbar to set it up.</span></div>`;
         const anchor = document.querySelector("#game_area_purchase")
@@ -83,7 +83,7 @@
     const panel = document.createElement("div");
     panel.className = "spp_panel";
 
-    let html = `<div class="spp_title">Vapor Tracker <span class="spp_source">via IsThereAnyDeal</span></div>`;
+    let html = `<div class="spp_title">Vapor Tracker <a class="spp_source" href="https://isthereanydeal.com" target="_blank" rel="noopener">via IsThereAnyDeal</a></div>`;
 
     if (lowest) {
         const when = new Date(lowest.timestamp).toLocaleDateString(undefined, {year: "numeric", month: "short"});

@@ -24,19 +24,39 @@ function post(body) {
 //                          ago (only when that mode is enabled, one GET/game)
 // Returns {prices: {"app/123": entry}} shaped like the content scripts expect,
 // or {needsKey: true} when no API key is configured.
+// ITAD's ToS asks integrations to cache rather than refetch; prices don't
+// move fast, so an hour per game/country/mode is plenty. Lives as long as
+// the background page does.
+const priceCache = new Map();
+const CACHE_TTL_MS = 60 * 60 * 1000;
+
 async function fetchAllPrices(requestBody) {
     const {lowMode, itadKey} = await browser.storage.local.get({lowMode: "all", itadKey: ""});
     if (!itadKey) {
         return {needsKey: true};
     }
 
-    const gameIds = [
+    const allGameIds = [
         ...requestBody.apps.map((id) => `app/${id}`),
         ...requestBody.subs.map((id) => `sub/${id}`),
         ...requestBody.bundles.map((id) => `bundle/${id}`)
     ];
+
+    const cacheKey = (gid) => `${requestBody.country}|${lowMode}|${gid}`;
+    const prices = {};
+    const gameIds = [];
+    for (const gid of allGameIds) {
+        const hit = priceCache.get(cacheKey(gid));
+        if (hit && hit.expires > Date.now()) {
+            if (hit.entry) {
+                prices[gid] = hit.entry;
+            }
+        } else {
+            gameIds.push(gid);
+        }
+    }
     if (gameIds.length === 0) {
-        return {prices: {}};
+        return {prices};
     }
 
     const key = encodeURIComponent(itadKey);
@@ -52,7 +72,10 @@ async function fetchAllPrices(requestBody) {
         }
     }
     if (uuidToGameId.size === 0) {
-        return {prices: {}};
+        for (const gid of gameIds) {
+            priceCache.set(cacheKey(gid), {expires: Date.now() + CACHE_TTL_MS, entry: null});
+        }
+        return {prices};
     }
     const uuids = [...uuidToGameId.keys()];
 
@@ -60,7 +83,6 @@ async function fetchAllPrices(requestBody) {
         `${ITAD_API}/games/overview/v2?key=${key}&country=${requestBody.country}`,
         post(uuids)
     );
-    const prices = {};
     for (const p of overview.prices ?? []) {
         const gid = uuidToGameId.get(p.id);
         if (gid) {
@@ -105,6 +127,10 @@ async function fetchAllPrices(requestBody) {
                 console.error("[VaporTracker] 1y low fetch failed, showing all-time low:", err);
             }
         }));
+    }
+
+    for (const gid of gameIds) {
+        priceCache.set(cacheKey(gid), {expires: Date.now() + CACHE_TTL_MS, entry: prices[gid] ?? null});
     }
 
     return {prices};

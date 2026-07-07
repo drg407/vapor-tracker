@@ -133,7 +133,7 @@
         if (document.querySelector(".spp_wl_banner")) { return; }
         const banner = document.createElement("div");
         banner.className = "spp_panel spp_wl_banner";
-        banner.innerHTML = `<div class="spp_title">Vapor Tracker <span class="spp_source">via IsThereAnyDeal</span></div>
+        banner.innerHTML = `<div class="spp_title">Vapor Tracker <a class="spp_source" href="https://isthereanydeal.com" target="_blank" rel="noopener">via IsThereAnyDeal</a></div>
             <div class="spp_row"><span class="spp_setup">Add your free IsThereAnyDeal API key to see wishlist prices —
             click the Vapor Tracker icon in the toolbar to set it up.</span></div>`;
         document.body.prepend(banner);

@@ -65,7 +65,7 @@ PNG set in `Extension/img/`.
 
 Price data by [IsThereAnyDeal](https://isthereanydeal.com). Inspired by
 [Augmented Steam](https://github.com/IsThereAnyDeal/AugmentedSteam).
-Not affiliated with Valve or Steam.
+Not affiliated with Valve, Steam, or IsThereAnyDeal.
 
 ## License
 
