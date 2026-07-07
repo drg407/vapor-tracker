@@ -1,0 +1,80 @@
+.spp_panel {
+    background: linear-gradient(135deg, #1b2838 0%, #16202d 100%);
+    border: 1px solid #2a475e;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 0 0 14px 0;
+    color: #c6d4df;
+    font-family: "Motiva Sans", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.spp_title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #66c0f4;
+    margin-bottom: 8px;
+}
+
+.spp_source {
+    font-size: 11px;
+    font-weight: normal;
+    color: #556772;
+    margin-left: 6px;
+}
+
+.spp_row {
+    margin: 4px 0;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.spp_label {
+    color: #8f98a0;
+    min-width: 105px;
+}
+
+.spp_value a {
+    color: #a4d007;
+    text-decoration: none;
+}
+
+.spp_value a:hover {
+    color: #cff53b;
+}
+
+.spp_cut {
+    background: #4c6b22;
+    color: #a4d007;
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.spp_badge {
+    background: #a4d007;
+    color: #16202d;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 6px;
+    text-transform: uppercase;
+}
+
+.spp_when {
+    color: #8f98a0;
+    font-size: 12px;
+}
+
+.spp_history {
+    color: #66c0f4;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.spp_history:hover {
+    color: #fff;
+}

@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Steam Prices POC",
+    "version": "0.1",
+    "description": "Shows historical low and current best price from other stores on Steam pages (IsThereAnyDeal data).",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://store.steampowered.com/app/*",
+                "*://store.steampowered.com/sub/*",
+                "*://store.steampowered.com/bundle/*"
+            ],
+            "js": ["content.js"],
+            "css": ["content.css"],
+            "run_at": "document_idle"
+        }
+    ],
+    "host_permissions": [
+        "https://api.augmentedsteam.com/*"
+    ]
+}
