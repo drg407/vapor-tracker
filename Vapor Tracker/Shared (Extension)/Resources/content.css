@@ -109,3 +109,16 @@
     color: #556772;
     font-style: italic;
 }
+
+.spp_setup {
+    color: #c6d4df;
+}
+
+.spp_wl_banner {
+    position: fixed;
+    top: 70px;
+    right: 16px;
+    z-index: 9999;
+    max-width: 340px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}

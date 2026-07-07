@@ -89,15 +89,32 @@
                     action: "fetchPrices",
                     body: {country: "US", apps: chunk, subs: [], bundles: [], voucher: true, shops: []}
                 });
+                if (data?.needsKey) {
+                    showKeyBanner();
+                    return;
+                }
                 for (const id of chunk) {
                     cache.set(id, data?.prices?.[`app/${id}`] ?? null);
                 }
             } catch (err) {
-                console.error("[SteamPricesPOC] wishlist price fetch failed:", err);
+                console.error("[VaporTracker] wishlist price fetch failed:", err);
                 return;
             }
         }
         scan();
+    }
+
+    // Without an API key there's nothing to show; put one banner up top,
+    // stop observing, and let the user set up via the toolbar popup.
+    function showKeyBanner() {
+        observer.disconnect();
+        if (document.querySelector(".spp_wl_banner")) { return; }
+        const banner = document.createElement("div");
+        banner.className = "spp_panel spp_wl_banner";
+        banner.innerHTML = `<div class="spp_title">Vapor Tracker <span class="spp_source">via IsThereAnyDeal</span></div>
+            <div class="spp_row"><span class="spp_setup">Add your free IsThereAnyDeal API key to see wishlist prices —
+            click the Vapor Tracker icon in the toolbar to set it up.</span></div>`;
+        document.body.prepend(banner);
     }
 
     // Wishlist rows are virtualized: they mount/unmount while scrolling,

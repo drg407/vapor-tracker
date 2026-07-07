@@ -22,13 +22,25 @@
     try {
         data = await browser.runtime.sendMessage({action: "fetchPrices", body});
     } catch (err) {
-        console.error("[SteamPricesPOC] price fetch failed:", err);
+        console.error("[VaporTracker] price fetch failed:", err);
+        return;
+    }
+
+    if (data?.needsKey) {
+        const setup = document.createElement("div");
+        setup.className = "spp_panel";
+        setup.innerHTML = `<div class="spp_title">Vapor Tracker <span class="spp_source">via IsThereAnyDeal</span></div>
+            <div class="spp_row"><span class="spp_setup">Add your free IsThereAnyDeal API key to see price history —
+            click the Vapor Tracker icon in the toolbar to set it up.</span></div>`;
+        const anchor = document.querySelector("#game_area_purchase")
+            ?? document.querySelector(".page_content_ctn");
+        anchor?.parentNode.insertBefore(setup, anchor);
         return;
     }
 
     const entry = data?.prices?.[`${type}/${id}`];
     if (!entry) {
-        console.log("[SteamPricesPOC] no price data for", `${type}/${id}`);
+        console.log("[VaporTracker] no price data for", `${type}/${id}`);
         return;
     }
 

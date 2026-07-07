@@ -1,4 +1,3 @@
-const PRICES_API = "https://api.augmentedsteam.com/prices/v2";
 const ITAD_API = "https://api.isthereanydeal.com";
 const ITAD_STEAM_SHOP_ID = 61;
 
@@ -18,54 +17,81 @@ function post(body) {
     };
 }
 
-// When "1-year low" mode is on, replace each app's all-time `lowest` with the
-// 1y low from the official ITAD API and tag it via `lowLabel`. Apps without
-// 1y data (or any ITAD failure) keep the all-time low untagged.
-async function applyY1Lows(data, requestBody) {
+// All data comes from the official ITAD API using the user's own key:
+//   lookup/id/shop/61/v1   steam ids ("app/123") -> ITAD game uuids
+//   games/overview/v2      current best + all-time low + history urls
+//   games/historylow/v1    1-year low (only when that mode is enabled)
+// Returns {prices: {"app/123": entry}} shaped like the content scripts expect,
+// or {needsKey: true} when no API key is configured.
+async function fetchAllPrices(requestBody) {
     const {lowMode, itadKey} = await browser.storage.local.get({lowMode: "all", itadKey: ""});
-    if (lowMode !== "y1" || !itadKey || requestBody.apps.length === 0) {
-        return;
+    if (!itadKey) {
+        return {needsKey: true};
     }
 
-    const gameIds = requestBody.apps.map((id) => `app/${id}`);
+    const gameIds = [
+        ...requestBody.apps.map((id) => `app/${id}`),
+        ...requestBody.subs.map((id) => `sub/${id}`),
+        ...requestBody.bundles.map((id) => `bundle/${id}`)
+    ];
+    if (gameIds.length === 0) {
+        return {prices: {}};
+    }
+
+    const key = encodeURIComponent(itadKey);
+
     const lookup = await fetchJson(
-        `${ITAD_API}/lookup/id/shop/${ITAD_STEAM_SHOP_ID}/v1?key=${encodeURIComponent(itadKey)}`,
+        `${ITAD_API}/lookup/id/shop/${ITAD_STEAM_SHOP_ID}/v1?key=${key}`,
         post(gameIds)
     );
-
-    const uuids = Object.values(lookup).filter(Boolean);
-    if (uuids.length === 0) {
-        return;
-    }
-
-    const lows = await fetchJson(
-        `${ITAD_API}/games/historylow/v1?key=${encodeURIComponent(itadKey)}&country=${requestBody.country}`,
-        post(uuids)
-    );
-    const y1ByUuid = new Map(lows.map((e) => [e.id, e.low?.y1 ?? null]));
-
-    for (const appid of requestBody.apps) {
-        const entry = data?.prices?.[`app/${appid}`];
-        const y1 = y1ByUuid.get(lookup[`app/${appid}`]);
-        if (entry && y1) {
-            entry.lowest = y1;
-            entry.lowLabel = "1y";
+    const uuidToGameId = new Map();
+    for (const gid of gameIds) {
+        if (lookup[gid]) {
+            uuidToGameId.set(lookup[gid], gid);
         }
     }
+    if (uuidToGameId.size === 0) {
+        return {prices: {}};
+    }
+    const uuids = [...uuidToGameId.keys()];
+
+    const overview = await fetchJson(
+        `${ITAD_API}/games/overview/v2?key=${key}&country=${requestBody.country}`,
+        post(uuids)
+    );
+    const prices = {};
+    for (const p of overview.prices ?? []) {
+        const gid = uuidToGameId.get(p.id);
+        if (gid) {
+            prices[gid] = p;
+        }
+    }
+
+    if (lowMode === "y1") {
+        try {
+            const lows = await fetchJson(
+                `${ITAD_API}/games/historylow/v1?key=${key}&country=${requestBody.country}`,
+                post(uuids)
+            );
+            for (const e of lows) {
+                const gid = uuidToGameId.get(e.id);
+                const y1 = e.low?.y1;
+                if (gid && prices[gid] && y1) {
+                    prices[gid].lowest = y1;
+                    prices[gid].lowLabel = "1y";
+                }
+            }
+        } catch (err) {
+            console.error("[VaporTracker] 1y low fetch failed, showing all-time low:", err);
+        }
+    }
+
+    return {prices};
 }
 
 browser.runtime.onMessage.addListener((message) => {
     if (message?.action !== "fetchPrices") {
         return;
     }
-
-    return (async () => {
-        const data = await fetchJson(PRICES_API, post(message.body));
-        try {
-            await applyY1Lows(data, message.body);
-        } catch (err) {
-            console.error("[SteamPricesPOC] 1y low fetch failed, showing all-time low:", err);
-        }
-        return data;
-    })();
+    return fetchAllPrices(message.body);
 });

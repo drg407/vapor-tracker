@@ -11,8 +11,8 @@ async function save() {
     const lowMode = radios.find((r) => r.checked)?.value ?? "all";
     const itadKey = keyInput.value.trim();
     await browser.storage.local.set({lowMode, itadKey});
-    if (lowMode === "y1" && !itadKey) {
-        status.textContent = "1-year low needs an API key";
+    if (!itadKey) {
+        status.textContent = "An API key is required for price data";
         return;
     }
     flash("Saved");
