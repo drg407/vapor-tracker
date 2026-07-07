@@ -28,6 +28,14 @@
     "content_scripts": [
         {
             "matches": [
+                "*://store.steampowered.com/*",
+                "*://steamcommunity.com/*"
+            ],
+            "js": ["banner.js"],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
                 "*://store.steampowered.com/app/*",
                 "*://store.steampowered.com/sub/*",
                 "*://store.steampowered.com/bundle/*"
@@ -46,7 +54,6 @@
         }
     ],
     "host_permissions": [
-        "https://api.augmentedsteam.com/*",
         "https://api.isthereanydeal.com/*"
     ]
 }
