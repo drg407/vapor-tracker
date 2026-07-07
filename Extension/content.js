@@ -55,7 +55,7 @@
     if (lowest) {
         const when = new Date(lowest.timestamp).toLocaleDateString(undefined, {year: "numeric", month: "short"});
         html += `<div class="spp_row">
-            <span class="spp_label">Historical low</span>
+            <span class="spp_label">${entry.lowLabel === "1y" ? "1-year low" : "Historical low"}</span>
             <span class="spp_value">${fmt(lowest.price)}
                 <span class="spp_cut">-${lowest.cut}%</span>
                 at ${lowest.shop.name} <span class="spp_when">(${when})</span>

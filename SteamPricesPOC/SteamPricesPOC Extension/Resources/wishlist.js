@@ -42,7 +42,7 @@
         if (entry.lowest) {
             const when = new Date(entry.lowest.timestamp)
                 .toLocaleDateString(undefined, {year: "numeric", month: "short"});
-            html += `<span class="spp_wl_low">low ${fmt(entry.lowest.price)}</span>
+            html += `<span class="spp_wl_low">${entry.lowLabel === "1y" ? "1y low" : "low"} ${fmt(entry.lowest.price)}</span>
                 <span class="spp_wl_dim">at ${entry.lowest.shop.name} (${when})</span>`;
         }
         if (entry.current) {

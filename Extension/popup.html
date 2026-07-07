@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    body {
+        width: 280px;
+        margin: 0;
+        padding: 14px 16px;
+        background: #1b2838;
+        color: #c6d4df;
+        font-family: -apple-system, "Motiva Sans", Arial, sans-serif;
+        font-size: 13px;
+    }
+    h1 {
+        font-size: 14px;
+        color: #66c0f4;
+        margin: 0 0 10px;
+    }
+    label.radio {
+        display: block;
+        padding: 5px 0;
+        cursor: pointer;
+    }
+    input[type="radio"] {
+        accent-color: #a4d007;
+        margin-right: 6px;
+    }
+    #keyRow {
+        margin-top: 10px;
+    }
+    #keyRow input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 4px;
+        padding: 5px 6px;
+        border: 1px solid #2a475e;
+        border-radius: 3px;
+        background: #16202d;
+        color: #c6d4df;
+        font-size: 12px;
+    }
+    .hint {
+        color: #8f98a0;
+        font-size: 11px;
+        margin-top: 6px;
+    }
+    .hint a {
+        color: #66c0f4;
+    }
+    #status {
+        color: #a4d007;
+        font-size: 11px;
+        height: 14px;
+        margin-top: 6px;
+    }
+</style>
+</head>
+<body>
+    <h1>Historical low display</h1>
+
+    <label class="radio">
+        <input type="radio" name="lowMode" value="all"> All-time low
+    </label>
+    <label class="radio">
+        <input type="radio" name="lowMode" value="y1"> 1-year low
+    </label>
+
+    <div id="keyRow">
+        ITAD API key <span class="hint">(required for 1-year low)</span>
+        <input type="text" id="itadKey" placeholder="paste key" autocomplete="off" spellcheck="false">
+        <div class="hint">Get a free key at <a href="https://isthereanydeal.com/apps/my/" target="_blank">isthereanydeal.com/apps/my</a>. Reload Steam pages to apply changes.</div>
+    </div>
+
+    <div id="status"></div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -16,6 +16,15 @@
     "background": {
         "scripts": ["background.js"]
     },
+    "permissions": ["storage"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "img/icon16.png",
+            "32": "img/icon32.png",
+            "48": "img/icon48.png"
+        }
+    },
     "content_scripts": [
         {
             "matches": [
@@ -37,6 +46,7 @@
         }
     ],
     "host_permissions": [
-        "https://api.augmentedsteam.com/*"
+        "https://api.augmentedsteam.com/*",
+        "https://api.isthereanydeal.com/*"
     ]
 }
