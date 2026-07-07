@@ -1,6 +1,6 @@
 //
 //  SafariWebExtensionHandler.swift
-//  SteamPricesPOC Extension
+//  Shared (Extension)
 //
 //  Created by David Guevara on 7/7/26.
 //

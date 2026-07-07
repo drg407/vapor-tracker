@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Steam Prices POC",
+    "name": "Vapor Tracker",
     "version": "0.1",
     "description": "Shows historical low and current best price from other stores on Steam pages (IsThereAnyDeal data).",
     "icons": {

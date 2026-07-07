@@ -50,7 +50,7 @@
     const panel = document.createElement("div");
     panel.className = "spp_panel";
 
-    let html = `<div class="spp_title">Price check <span class="spp_source">via IsThereAnyDeal</span></div>`;
+    let html = `<div class="spp_title">Vapor Tracker <span class="spp_source">via IsThereAnyDeal</span></div>`;
 
     if (lowest) {
         const when = new Date(lowest.timestamp).toLocaleDateString(undefined, {year: "numeric", month: "short"});

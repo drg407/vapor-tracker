@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  SteamPricesPOC
+//  macOS (App)
 //
 //  Created by David Guevara on 7/7/26.
 //
