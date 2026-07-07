@@ -9,7 +9,7 @@ import Cocoa
 import SafariServices
 import WebKit
 
-let extensionBundleIdentifier = "com.dguevara.steamprices-poc.Extension"
+let extensionBundleIdentifier = "com.dguevara.SteamPricesPOC.Extension"
 
 class ViewController: NSViewController, WKNavigationDelegate, WKScriptMessageHandler {
 

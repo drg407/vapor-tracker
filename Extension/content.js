@@ -1,8 +1,6 @@
 (async function () {
     "use strict";
 
-    const API = "https://api.augmentedsteam.com/prices/v2";
-
     // --- Identify what we're looking at from the URL ---
     const match = location.pathname.match(/^\/(app|sub|bundle)\/(\d+)/);
     if (!match) { return; }
@@ -18,15 +16,11 @@
         shops: []
     };
 
+    // Steam's CSP connect-src blocks direct calls to the API from the page,
+    // so the fetch happens in the background script.
     let data;
     try {
-        const res = await fetch(API, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(body)
-        });
-        if (!res.ok) { throw new Error(`prices/v2 responded ${res.status}`); }
-        data = await res.json();
+        data = await browser.runtime.sendMessage({action: "fetchPrices", body});
     } catch (err) {
         console.error("[SteamPricesPOC] price fetch failed:", err);
         return;

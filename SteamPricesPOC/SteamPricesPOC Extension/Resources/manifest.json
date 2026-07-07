@@ -3,6 +3,9 @@
     "name": "Steam Prices POC",
     "version": "0.1",
     "description": "Shows historical low and current best price from other stores on Steam pages (IsThereAnyDeal data).",
+    "background": {
+        "scripts": ["background.js"]
+    },
     "content_scripts": [
         {
             "matches": [
