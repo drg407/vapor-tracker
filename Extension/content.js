@@ -88,8 +88,9 @@
         </div>`;
     }
 
-    if (urls?.history) {
-        html += `<div class="spp_row"><a class="spp_history" href="${urls.history}" target="_blank" rel="noopener">Full price history →</a></div>`;
+    const historyUrl = urls?.history ?? (urls?.game ? `${urls.game}history/` : null);
+    if (historyUrl) {
+        html += `<div class="spp_row"><a class="spp_history" href="${historyUrl}" target="_blank" rel="noopener">Full price history →</a></div>`;
     }
 
     panel.innerHTML = html;
