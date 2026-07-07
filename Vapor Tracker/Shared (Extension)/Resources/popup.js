@@ -1,5 +1,6 @@
 const status = document.getElementById("status");
 const keyInput = document.getElementById("itadKey");
+const saveButton = document.getElementById("save");
 const radios = [...document.querySelectorAll("input[name='lowMode']")];
 
 function flash(msg) {
@@ -13,9 +14,10 @@ async function save() {
     await browser.storage.local.set({lowMode, itadKey});
     if (!itadKey) {
         status.textContent = "An API key is required for price data";
-        return;
+        return false;
     }
     flash("Saved");
+    return true;
 }
 
 browser.storage.local.get({lowMode: "all", itadKey: ""}).then(({lowMode, itadKey}) => {
@@ -25,3 +27,10 @@ browser.storage.local.get({lowMode: "all", itadKey: ""}).then(({lowMode, itadKey
 
 radios.forEach((r) => r.addEventListener("change", save));
 keyInput.addEventListener("change", save);
+
+saveButton.addEventListener("click", async () => {
+    if (await save()) {
+        await browser.tabs.reload();
+        window.close();
+    }
+});
