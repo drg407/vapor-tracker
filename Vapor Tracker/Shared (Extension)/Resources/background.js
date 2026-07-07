@@ -69,7 +69,11 @@ async function fetchAllPrices(requestBody) {
     }
 
     if (lowMode === "y1") {
-        const since = encodeURIComponent(new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString());
+        // ITAD rejects fractional seconds ("Invalid 'since' format"), which
+        // toISOString() always emits — strip the milliseconds.
+        const since = encodeURIComponent(
+            new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().replace(/\.\d{3}Z$/, "Z")
+        );
         await Promise.all(uuids.map(async (uuid) => {
             const gid = uuidToGameId.get(uuid);
             if (!gid || !prices[gid]) {

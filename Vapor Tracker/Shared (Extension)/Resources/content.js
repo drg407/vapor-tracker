@@ -7,8 +7,11 @@
     const [, type, idStr] = match;
     const id = Number(idStr);
 
+    // Steam exposes the storefront country in its own cookie
+    const country = document.cookie.match(/steamCountry=([A-Z]{2})/)?.[1] ?? "US";
+
     const body = {
-        country: "US",
+        country,
         apps: type === "app" ? [id] : [],
         subs: type === "sub" ? [id] : [],
         bundles: type === "bundle" ? [id] : [],
@@ -47,16 +50,34 @@
     const {current, lowest, urls} = entry;
 
     // --- Steam's own current price, for the "cheaper elsewhere" comparison ---
+    // Handles both "1.234,56" and "1,234.56" style locales.
+    function parseMoney(text) {
+        const m = text.match(/\d[\d.,  ]*/);
+        if (!m) { return null; }
+        let s = m[0].replace(/[  ]/g, "");
+        if (s.lastIndexOf(",") > s.lastIndexOf(".")) {
+            s = s.replace(/\./g, "").replace(",", ".");
+        } else {
+            s = s.replace(/,/g, "");
+        }
+        const n = parseFloat(s);
+        return Number.isFinite(n) ? n : null;
+    }
+
     function steamPrice() {
         const el = document.querySelector(
             "#game_area_purchase .discount_final_price, #game_area_purchase .game_purchase_price"
         );
-        if (!el) { return null; }
-        const n = parseFloat(el.textContent.replace(/[^0-9.]/g, ""));
-        return Number.isFinite(n) ? n : null;
+        return el ? parseMoney(el.textContent) : null;
     }
 
-    const fmt = (p) => `$${p.amount.toFixed(2)}`;
+    const fmt = (p) => {
+        try {
+            return new Intl.NumberFormat(undefined, {style: "currency", currency: p.currency}).format(p.amount);
+        } catch {
+            return `${p.amount.toFixed(2)} ${p.currency}`;
+        }
+    };
 
     // --- Build the panel ---
     const panel = document.createElement("div");

@@ -7,7 +7,28 @@
     let flushTimer = null;
     let scanTimer = null;
 
-    const fmt = (p) => `$${p.amount.toFixed(2)}`;
+    // Steam exposes the storefront country in its own cookie
+    const country = document.cookie.match(/steamCountry=([A-Z]{2})/)?.[1] ?? "US";
+
+    const fmt = (p) => {
+        try {
+            return new Intl.NumberFormat(undefined, {style: "currency", currency: p.currency}).format(p.amount);
+        } catch {
+            return `${p.amount.toFixed(2)} ${p.currency}`;
+        }
+    };
+
+    // Handles both "1.234,56" and "1,234.56" style locales.
+    function parseMoney(text) {
+        let s = text.replace(/[  ]/g, "");
+        if (s.lastIndexOf(",") > s.lastIndexOf(".")) {
+            s = s.replace(/\./g, "").replace(",", ".");
+        } else {
+            s = s.replace(/,/g, "");
+        }
+        const n = parseFloat(s);
+        return Number.isFinite(n) ? n : null;
+    }
 
     function titleAnchors() {
         return [...document.querySelectorAll("a[href*='/app/']")]
@@ -20,8 +41,9 @@
     }
 
     function steamPriceIn(row) {
-        const m = row.textContent.match(/\$(\d[\d,]*\.?\d*)/);
-        return m ? parseFloat(m[1].replace(/,/g, "")) : null;
+        // Anchor on a currency marker so dates like "4/20/2026" don't match
+        const m = row.textContent.match(/(?:[$€£₹]|USD|EUR|GBP|CDN\$|A\$)\s?(\d[\d.,  ]*)/);
+        return m ? parseMoney(m[1]) : null;
     }
 
     function render(anchor, entry) {
@@ -87,7 +109,7 @@
             try {
                 const data = await browser.runtime.sendMessage({
                     action: "fetchPrices",
-                    body: {country: "US", apps: chunk, subs: [], bundles: [], voucher: true, shops: []}
+                    body: {country, apps: chunk, subs: [], bundles: [], voucher: true, shops: []}
                 });
                 if (data?.needsKey) {
                     showKeyBanner();
