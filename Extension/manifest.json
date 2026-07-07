@@ -26,6 +26,14 @@
             "js": ["content.js"],
             "css": ["content.css"],
             "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "*://store.steampowered.com/wishlist/*"
+            ],
+            "js": ["wishlist.js"],
+            "css": ["content.css"],
+            "run_at": "document_idle"
         }
     ],
     "host_permissions": [

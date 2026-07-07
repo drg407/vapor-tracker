@@ -78,3 +78,34 @@
 .spp_history:hover {
     color: #fff;
 }
+
+/* Wishlist row price line */
+.spp_wl {
+    font-size: 12px;
+    font-family: "Motiva Sans", Arial, sans-serif;
+    margin-top: 2px;
+    color: #8f98a0;
+}
+
+.spp_wl_low {
+    color: #a4d007;
+    font-weight: bold;
+}
+
+.spp_wl_dim {
+    color: #8f98a0;
+}
+
+.spp_wl_now {
+    color: #66c0f4;
+    text-decoration: none;
+}
+
+.spp_wl_now:hover {
+    color: #fff;
+}
+
+.spp_wl_none {
+    color: #556772;
+    font-style: italic;
+}

@@ -7,41 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		526514522FFD454D0020CE42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526514512FFD454D0020CE42 /* AppDelegate.swift */; };
-		526514562FFD454D0020CE42 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 526514542FFD454D0020CE42 /* Main.html */; };
-		526514582FFD454D0020CE42 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 526514572FFD454D0020CE42 /* Icon.png */; };
-		5265145A2FFD454D0020CE42 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 526514592FFD454D0020CE42 /* Style.css */; };
-		5265145C2FFD454D0020CE42 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 5265145B2FFD454D0020CE42 /* Script.js */; };
-		5265145E2FFD454D0020CE42 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5265145D2FFD454D0020CE42 /* ViewController.swift */; };
-		526514612FFD454D0020CE42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5265145F2FFD454D0020CE42 /* Main.storyboard */; };
-		526514632FFD454E0020CE42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 526514622FFD454E0020CE42 /* Assets.xcassets */; };
-		5265146A2FFD454E0020CE42 /* SteamPricesPOC Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 526514692FFD454E0020CE42 /* SteamPricesPOC Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5265146F2FFD454E0020CE42 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5265146E2FFD454E0020CE42 /* SafariWebExtensionHandler.swift */; };
-		526514802FFD454E0020CE42 /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = 5265147B2FFD454E0020CE42 /* content.css */; };
-		526514812FFD454E0020CE42 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 5265147C2FFD454E0020CE42 /* background.js */; };
-		526514822FFD454E0020CE42 /* img in Resources */ = {isa = PBXBuildFile; fileRef = 5265147D2FFD454E0020CE42 /* img */; };
-		526514832FFD454E0020CE42 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5265147E2FFD454E0020CE42 /* manifest.json */; };
-		526514842FFD454E0020CE42 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 5265147F2FFD454E0020CE42 /* content.js */; };
+		528163A22FFD47F400B4ABF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528163A12FFD47F400B4ABF8 /* AppDelegate.swift */; };
+		528163A62FFD47F400B4ABF8 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 528163A42FFD47F400B4ABF8 /* Main.html */; };
+		528163A82FFD47F400B4ABF8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 528163A72FFD47F400B4ABF8 /* Icon.png */; };
+		528163AA2FFD47F400B4ABF8 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 528163A92FFD47F400B4ABF8 /* Style.css */; };
+		528163AC2FFD47F400B4ABF8 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 528163AB2FFD47F400B4ABF8 /* Script.js */; };
+		528163AE2FFD47F400B4ABF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528163AD2FFD47F400B4ABF8 /* ViewController.swift */; };
+		528163B12FFD47F400B4ABF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 528163AF2FFD47F400B4ABF8 /* Main.storyboard */; };
+		528163B32FFD47F500B4ABF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528163B22FFD47F500B4ABF8 /* Assets.xcassets */; };
+		528163BA2FFD47F500B4ABF8 /* SteamPricesPOC Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 528163B92FFD47F500B4ABF8 /* SteamPricesPOC Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		528163BF2FFD47F500B4ABF8 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528163BE2FFD47F500B4ABF8 /* SafariWebExtensionHandler.swift */; };
+		528163D12FFD47F500B4ABF8 /* wishlist.js in Resources */ = {isa = PBXBuildFile; fileRef = 528163CB2FFD47F500B4ABF8 /* wishlist.js */; };
+		528163D22FFD47F500B4ABF8 /* content.css in Resources */ = {isa = PBXBuildFile; fileRef = 528163CC2FFD47F500B4ABF8 /* content.css */; };
+		528163D32FFD47F500B4ABF8 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 528163CD2FFD47F500B4ABF8 /* background.js */; };
+		528163D42FFD47F500B4ABF8 /* img in Resources */ = {isa = PBXBuildFile; fileRef = 528163CE2FFD47F500B4ABF8 /* img */; };
+		528163D52FFD47F500B4ABF8 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 528163CF2FFD47F500B4ABF8 /* manifest.json */; };
+		528163D62FFD47F500B4ABF8 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 528163D02FFD47F500B4ABF8 /* content.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5265146B2FFD454E0020CE42 /* PBXContainerItemProxy */ = {
+		528163BB2FFD47F500B4ABF8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 526514462FFD454D0020CE42 /* Project object */;
+			containerPortal = 528163962FFD47F400B4ABF8 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 526514682FFD454E0020CE42;
+			remoteGlobalIDString = 528163B82FFD47F500B4ABF8;
 			remoteInfo = "SteamPricesPOC Extension";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		526514762FFD454E0020CE42 /* Embed Foundation Extensions */ = {
+		528163C62FFD47F500B4ABF8 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5265146A2FFD454E0020CE42 /* SteamPricesPOC Extension.appex in Embed Foundation Extensions */,
+				528163BA2FFD47F500B4ABF8 /* SteamPricesPOC Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,35 +50,36 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5265144E2FFD454D0020CE42 /* SteamPricesPOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamPricesPOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		526514512FFD454D0020CE42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		526514552FFD454D0020CE42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
-		526514572FFD454D0020CE42 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		526514592FFD454D0020CE42 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		5265145B2FFD454D0020CE42 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
-		5265145D2FFD454D0020CE42 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		526514602FFD454D0020CE42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		526514622FFD454E0020CE42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		526514642FFD454E0020CE42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		526514692FFD454E0020CE42 /* SteamPricesPOC Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SteamPricesPOC Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5265146E2FFD454E0020CE42 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		526514702FFD454E0020CE42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5265147B2FFD454E0020CE42 /* content.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = content.css; path = Resources/content.css; sourceTree = "<group>"; };
-		5265147C2FFD454E0020CE42 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = Resources/background.js; sourceTree = "<group>"; };
-		5265147D2FFD454E0020CE42 /* img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = img; path = Resources/img; sourceTree = "<group>"; };
-		5265147E2FFD454E0020CE42 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
-		5265147F2FFD454E0020CE42 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = Resources/content.js; sourceTree = "<group>"; };
+		5281639E2FFD47F400B4ABF8 /* SteamPricesPOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteamPricesPOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		528163A12FFD47F400B4ABF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		528163A52FFD47F400B4ABF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		528163A72FFD47F400B4ABF8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		528163A92FFD47F400B4ABF8 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		528163AB2FFD47F400B4ABF8 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		528163AD2FFD47F400B4ABF8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		528163B02FFD47F400B4ABF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		528163B22FFD47F500B4ABF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		528163B42FFD47F500B4ABF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		528163B92FFD47F500B4ABF8 /* SteamPricesPOC Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SteamPricesPOC Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		528163BE2FFD47F500B4ABF8 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		528163C02FFD47F500B4ABF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		528163CB2FFD47F500B4ABF8 /* wishlist.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = wishlist.js; path = Resources/wishlist.js; sourceTree = "<group>"; };
+		528163CC2FFD47F500B4ABF8 /* content.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = content.css; path = Resources/content.css; sourceTree = "<group>"; };
+		528163CD2FFD47F500B4ABF8 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = Resources/background.js; sourceTree = "<group>"; };
+		528163CE2FFD47F500B4ABF8 /* img */ = {isa = PBXFileReference; lastKnownFileType = folder; name = img; path = Resources/img; sourceTree = "<group>"; };
+		528163CF2FFD47F500B4ABF8 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
+		528163D02FFD47F500B4ABF8 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = Resources/content.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5265144B2FFD454D0020CE42 /* Frameworks */ = {
+		5281639B2FFD47F400B4ABF8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		526514662FFD454E0020CE42 /* Frameworks */ = {
+		528163B62FFD47F500B4ABF8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -87,66 +89,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		526514452FFD454D0020CE42 = {
+		528163952FFD47F400B4ABF8 = {
 			isa = PBXGroup;
 			children = (
-				526514502FFD454D0020CE42 /* SteamPricesPOC */,
-				5265146D2FFD454E0020CE42 /* SteamPricesPOC Extension */,
-				5265144F2FFD454D0020CE42 /* Products */,
+				528163A02FFD47F400B4ABF8 /* SteamPricesPOC */,
+				528163BD2FFD47F500B4ABF8 /* SteamPricesPOC Extension */,
+				5281639F2FFD47F400B4ABF8 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		5265144F2FFD454D0020CE42 /* Products */ = {
+		5281639F2FFD47F400B4ABF8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5265144E2FFD454D0020CE42 /* SteamPricesPOC.app */,
-				526514692FFD454E0020CE42 /* SteamPricesPOC Extension.appex */,
+				5281639E2FFD47F400B4ABF8 /* SteamPricesPOC.app */,
+				528163B92FFD47F500B4ABF8 /* SteamPricesPOC Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		526514502FFD454D0020CE42 /* SteamPricesPOC */ = {
+		528163A02FFD47F400B4ABF8 /* SteamPricesPOC */ = {
 			isa = PBXGroup;
 			children = (
-				526514512FFD454D0020CE42 /* AppDelegate.swift */,
-				5265145D2FFD454D0020CE42 /* ViewController.swift */,
-				5265145F2FFD454D0020CE42 /* Main.storyboard */,
-				526514622FFD454E0020CE42 /* Assets.xcassets */,
-				526514642FFD454E0020CE42 /* Info.plist */,
-				526514532FFD454D0020CE42 /* Resources */,
+				528163A12FFD47F400B4ABF8 /* AppDelegate.swift */,
+				528163AD2FFD47F400B4ABF8 /* ViewController.swift */,
+				528163AF2FFD47F400B4ABF8 /* Main.storyboard */,
+				528163B22FFD47F500B4ABF8 /* Assets.xcassets */,
+				528163B42FFD47F500B4ABF8 /* Info.plist */,
+				528163A32FFD47F400B4ABF8 /* Resources */,
 			);
 			path = SteamPricesPOC;
 			sourceTree = "<group>";
 		};
-		526514532FFD454D0020CE42 /* Resources */ = {
+		528163A32FFD47F400B4ABF8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				526514542FFD454D0020CE42 /* Main.html */,
-				526514572FFD454D0020CE42 /* Icon.png */,
-				526514592FFD454D0020CE42 /* Style.css */,
-				5265145B2FFD454D0020CE42 /* Script.js */,
+				528163A42FFD47F400B4ABF8 /* Main.html */,
+				528163A72FFD47F400B4ABF8 /* Icon.png */,
+				528163A92FFD47F400B4ABF8 /* Style.css */,
+				528163AB2FFD47F400B4ABF8 /* Script.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		5265146D2FFD454E0020CE42 /* SteamPricesPOC Extension */ = {
+		528163BD2FFD47F500B4ABF8 /* SteamPricesPOC Extension */ = {
 			isa = PBXGroup;
 			children = (
-				5265147A2FFD454E0020CE42 /* Resources */,
-				5265146E2FFD454E0020CE42 /* SafariWebExtensionHandler.swift */,
-				526514702FFD454E0020CE42 /* Info.plist */,
+				528163CA2FFD47F500B4ABF8 /* Resources */,
+				528163BE2FFD47F500B4ABF8 /* SafariWebExtensionHandler.swift */,
+				528163C02FFD47F500B4ABF8 /* Info.plist */,
 			);
 			path = "SteamPricesPOC Extension";
 			sourceTree = "<group>";
 		};
-		5265147A2FFD454E0020CE42 /* Resources */ = {
+		528163CA2FFD47F500B4ABF8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5265147B2FFD454E0020CE42 /* content.css */,
-				5265147C2FFD454E0020CE42 /* background.js */,
-				5265147D2FFD454E0020CE42 /* img */,
-				5265147E2FFD454E0020CE42 /* manifest.json */,
-				5265147F2FFD454E0020CE42 /* content.js */,
+				528163CB2FFD47F500B4ABF8 /* wishlist.js */,
+				528163CC2FFD47F500B4ABF8 /* content.css */,
+				528163CD2FFD47F500B4ABF8 /* background.js */,
+				528163CE2FFD47F500B4ABF8 /* img */,
+				528163CF2FFD47F500B4ABF8 /* manifest.json */,
+				528163D02FFD47F500B4ABF8 /* content.js */,
 			);
 			name = Resources;
 			path = "SteamPricesPOC Extension";
@@ -155,34 +158,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5265144D2FFD454D0020CE42 /* SteamPricesPOC */ = {
+		5281639D2FFD47F400B4ABF8 /* SteamPricesPOC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 526514772FFD454E0020CE42 /* Build configuration list for PBXNativeTarget "SteamPricesPOC" */;
+			buildConfigurationList = 528163C72FFD47F500B4ABF8 /* Build configuration list for PBXNativeTarget "SteamPricesPOC" */;
 			buildPhases = (
-				5265144A2FFD454D0020CE42 /* Sources */,
-				5265144B2FFD454D0020CE42 /* Frameworks */,
-				5265144C2FFD454D0020CE42 /* Resources */,
-				526514762FFD454E0020CE42 /* Embed Foundation Extensions */,
+				5281639A2FFD47F400B4ABF8 /* Sources */,
+				5281639B2FFD47F400B4ABF8 /* Frameworks */,
+				5281639C2FFD47F400B4ABF8 /* Resources */,
+				528163C62FFD47F500B4ABF8 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				5265146C2FFD454E0020CE42 /* PBXTargetDependency */,
+				528163BC2FFD47F500B4ABF8 /* PBXTargetDependency */,
 			);
 			name = SteamPricesPOC;
 			packageProductDependencies = (
 			);
 			productName = SteamPricesPOC;
-			productReference = 5265144E2FFD454D0020CE42 /* SteamPricesPOC.app */;
+			productReference = 5281639E2FFD47F400B4ABF8 /* SteamPricesPOC.app */;
 			productType = "com.apple.product-type.application";
 		};
-		526514682FFD454E0020CE42 /* SteamPricesPOC Extension */ = {
+		528163B82FFD47F500B4ABF8 /* SteamPricesPOC Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 526514732FFD454E0020CE42 /* Build configuration list for PBXNativeTarget "SteamPricesPOC Extension" */;
+			buildConfigurationList = 528163C32FFD47F500B4ABF8 /* Build configuration list for PBXNativeTarget "SteamPricesPOC Extension" */;
 			buildPhases = (
-				526514652FFD454E0020CE42 /* Sources */,
-				526514662FFD454E0020CE42 /* Frameworks */,
-				526514672FFD454E0020CE42 /* Resources */,
+				528163B52FFD47F500B4ABF8 /* Sources */,
+				528163B62FFD47F500B4ABF8 /* Frameworks */,
+				528163B72FFD47F500B4ABF8 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -192,116 +195,117 @@
 			packageProductDependencies = (
 			);
 			productName = "SteamPricesPOC Extension";
-			productReference = 526514692FFD454E0020CE42 /* SteamPricesPOC Extension.appex */;
+			productReference = 528163B92FFD47F500B4ABF8 /* SteamPricesPOC Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		526514462FFD454D0020CE42 /* Project object */ = {
+		528163962FFD47F400B4ABF8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					5265144D2FFD454D0020CE42 = {
+					5281639D2FFD47F400B4ABF8 = {
 						CreatedOnToolsVersion = 26.6;
 					};
-					526514682FFD454E0020CE42 = {
+					528163B82FFD47F500B4ABF8 = {
 						CreatedOnToolsVersion = 26.6;
 					};
 				};
 			};
-			buildConfigurationList = 526514492FFD454D0020CE42 /* Build configuration list for PBXProject "SteamPricesPOC" */;
+			buildConfigurationList = 528163992FFD47F400B4ABF8 /* Build configuration list for PBXProject "SteamPricesPOC" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 526514452FFD454D0020CE42;
+			mainGroup = 528163952FFD47F400B4ABF8;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 5265144F2FFD454D0020CE42 /* Products */;
+			productRefGroup = 5281639F2FFD47F400B4ABF8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5265144D2FFD454D0020CE42 /* SteamPricesPOC */,
-				526514682FFD454E0020CE42 /* SteamPricesPOC Extension */,
+				5281639D2FFD47F400B4ABF8 /* SteamPricesPOC */,
+				528163B82FFD47F500B4ABF8 /* SteamPricesPOC Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5265144C2FFD454D0020CE42 /* Resources */ = {
+		5281639C2FFD47F400B4ABF8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				526514582FFD454D0020CE42 /* Icon.png in Resources */,
-				526514612FFD454D0020CE42 /* Main.storyboard in Resources */,
-				5265145C2FFD454D0020CE42 /* Script.js in Resources */,
-				526514562FFD454D0020CE42 /* Main.html in Resources */,
-				526514632FFD454E0020CE42 /* Assets.xcassets in Resources */,
-				5265145A2FFD454D0020CE42 /* Style.css in Resources */,
+				528163A82FFD47F400B4ABF8 /* Icon.png in Resources */,
+				528163B12FFD47F400B4ABF8 /* Main.storyboard in Resources */,
+				528163AC2FFD47F400B4ABF8 /* Script.js in Resources */,
+				528163A62FFD47F400B4ABF8 /* Main.html in Resources */,
+				528163B32FFD47F500B4ABF8 /* Assets.xcassets in Resources */,
+				528163AA2FFD47F400B4ABF8 /* Style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		526514672FFD454E0020CE42 /* Resources */ = {
+		528163B72FFD47F500B4ABF8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				526514832FFD454E0020CE42 /* manifest.json in Resources */,
-				526514822FFD454E0020CE42 /* img in Resources */,
-				526514812FFD454E0020CE42 /* background.js in Resources */,
-				526514802FFD454E0020CE42 /* content.css in Resources */,
-				526514842FFD454E0020CE42 /* content.js in Resources */,
+				528163D62FFD47F500B4ABF8 /* content.js in Resources */,
+				528163D42FFD47F500B4ABF8 /* img in Resources */,
+				528163D12FFD47F500B4ABF8 /* wishlist.js in Resources */,
+				528163D52FFD47F500B4ABF8 /* manifest.json in Resources */,
+				528163D32FFD47F500B4ABF8 /* background.js in Resources */,
+				528163D22FFD47F500B4ABF8 /* content.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5265144A2FFD454D0020CE42 /* Sources */ = {
+		5281639A2FFD47F400B4ABF8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5265145E2FFD454D0020CE42 /* ViewController.swift in Sources */,
-				526514522FFD454D0020CE42 /* AppDelegate.swift in Sources */,
+				528163AE2FFD47F400B4ABF8 /* ViewController.swift in Sources */,
+				528163A22FFD47F400B4ABF8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		526514652FFD454E0020CE42 /* Sources */ = {
+		528163B52FFD47F500B4ABF8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5265146F2FFD454E0020CE42 /* SafariWebExtensionHandler.swift in Sources */,
+				528163BF2FFD47F500B4ABF8 /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5265146C2FFD454E0020CE42 /* PBXTargetDependency */ = {
+		528163BC2FFD47F500B4ABF8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 526514682FFD454E0020CE42 /* SteamPricesPOC Extension */;
-			targetProxy = 5265146B2FFD454E0020CE42 /* PBXContainerItemProxy */;
+			target = 528163B82FFD47F500B4ABF8 /* SteamPricesPOC Extension */;
+			targetProxy = 528163BB2FFD47F500B4ABF8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		526514542FFD454D0020CE42 /* Main.html */ = {
+		528163A42FFD47F400B4ABF8 /* Main.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				526514552FFD454D0020CE42 /* Base */,
+				528163A52FFD47F400B4ABF8 /* Base */,
 			);
 			name = Main.html;
 			sourceTree = "<group>";
 		};
-		5265145F2FFD454D0020CE42 /* Main.storyboard */ = {
+		528163AF2FFD47F400B4ABF8 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				526514602FFD454D0020CE42 /* Base */,
+				528163B02FFD47F400B4ABF8 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -309,7 +313,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		526514712FFD454E0020CE42 /* Debug */ = {
+		528163C12FFD47F500B4ABF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -372,7 +376,7 @@
 			};
 			name = Debug;
 		};
-		526514722FFD454E0020CE42 /* Release */ = {
+		528163C22FFD47F500B4ABF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -427,12 +431,11 @@
 			};
 			name = Release;
 		};
-		526514742FFD454E0020CE42 /* Debug */ = {
+		528163C42FFD47F500B4ABF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7UFLPXKQC2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -451,7 +454,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC.Extension;
+				DEVELOPMENT_TEAM = 7UFLPXKQC2; PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -462,12 +465,11 @@
 			};
 			name = Debug;
 		};
-		526514752FFD454E0020CE42 /* Release */ = {
+		528163C52FFD47F500B4ABF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7UFLPXKQC2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -486,7 +488,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC.Extension;
+				DEVELOPMENT_TEAM = 7UFLPXKQC2; PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -497,7 +499,7 @@
 			};
 			name = Release;
 		};
-		526514782FFD454E0020CE42 /* Debug */ = {
+		528163C82FFD47F500B4ABF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -505,7 +507,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7UFLPXKQC2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -527,7 +528,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC;
+				DEVELOPMENT_TEAM = 7UFLPXKQC2; PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -539,7 +540,7 @@
 			};
 			name = Debug;
 		};
-		526514792FFD454E0020CE42 /* Release */ = {
+		528163C92FFD47F500B4ABF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -547,7 +548,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7UFLPXKQC2;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -569,7 +569,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC;
+				DEVELOPMENT_TEAM = 7UFLPXKQC2; PRODUCT_BUNDLE_IDENTIFIER = com.dguevara.SteamPricesPOC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -584,34 +584,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		526514492FFD454D0020CE42 /* Build configuration list for PBXProject "SteamPricesPOC" */ = {
+		528163992FFD47F400B4ABF8 /* Build configuration list for PBXProject "SteamPricesPOC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				526514712FFD454E0020CE42 /* Debug */,
-				526514722FFD454E0020CE42 /* Release */,
+				528163C12FFD47F500B4ABF8 /* Debug */,
+				528163C22FFD47F500B4ABF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		526514732FFD454E0020CE42 /* Build configuration list for PBXNativeTarget "SteamPricesPOC Extension" */ = {
+		528163C32FFD47F500B4ABF8 /* Build configuration list for PBXNativeTarget "SteamPricesPOC Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				526514742FFD454E0020CE42 /* Debug */,
-				526514752FFD454E0020CE42 /* Release */,
+				528163C42FFD47F500B4ABF8 /* Debug */,
+				528163C52FFD47F500B4ABF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		526514772FFD454E0020CE42 /* Build configuration list for PBXNativeTarget "SteamPricesPOC" */ = {
+		528163C72FFD47F500B4ABF8 /* Build configuration list for PBXNativeTarget "SteamPricesPOC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				526514782FFD454E0020CE42 /* Debug */,
-				526514792FFD454E0020CE42 /* Release */,
+				528163C82FFD47F500B4ABF8 /* Debug */,
+				528163C92FFD47F500B4ABF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 526514462FFD454D0020CE42 /* Project object */;
+	rootObject = 528163962FFD47F400B4ABF8 /* Project object */;
 }
