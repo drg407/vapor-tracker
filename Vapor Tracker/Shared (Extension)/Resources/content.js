@@ -34,7 +34,7 @@
 
     const body = {
         country,
-        apps: type === "app" ? [id, ...dlcRows.map((d) => d.appid)] : [],
+        apps: type === "app" ? [id] : [],
         subs: [...new Set(boxes.filter((b) => b.gid.startsWith("sub/")).map((b) => Number(b.gid.slice(4))))],
         bundles: [...new Set(boxes.filter((b) => b.gid.startsWith("bundle/")).map((b) => Number(b.gid.slice(7))))],
         voucher: true,
@@ -43,11 +43,28 @@
     if (type === "sub") { body.subs.push(id); }
     if (type === "bundle") { body.bundles.push(id); }
 
+    // DLC rows are bulk lookups: skipY1 keeps them to one batched overview
+    // call instead of a history call per DLC in 1-year mode.
+    const dlcBody = {
+        country,
+        apps: dlcRows.map((d) => d.appid),
+        subs: [],
+        bundles: [],
+        voucher: true,
+        shops: [],
+        skipY1: true
+    };
+
     // Steam's CSP connect-src blocks direct calls to the API from the page,
     // so the fetch happens in the background script.
-    let data;
+    let data, dlcData;
     try {
-        data = await browser.runtime.sendMessage({action: "fetchPrices", body});
+        [data, dlcData] = await Promise.all([
+            browser.runtime.sendMessage({action: "fetchPrices", body}),
+            dlcRows.length > 0
+                ? browser.runtime.sendMessage({action: "fetchPrices", body: dlcBody})
+                : {prices: {}}
+        ]);
     } catch (err) {
         console.error("[VaporTracker] price fetch failed:", err);
         return;
@@ -178,8 +195,9 @@
     }
 
     // --- Inline note per DLC row (plain text: the row is itself a link) ---
+    const dlcPrices = dlcData?.prices ?? {};
     for (const {row, appid} of dlcRows) {
-        const entry = prices[`app/${appid}`];
+        const entry = dlcPrices[`app/${appid}`];
         if (!entry?.lowest && !entry?.current) { continue; }
 
         const parts = [];

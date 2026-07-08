@@ -31,10 +31,13 @@ const priceCache = new Map();
 const CACHE_TTL_MS = 60 * 60 * 1000;
 
 async function fetchAllPrices(requestBody) {
-    const {lowMode, itadKey} = await browser.storage.local.get({lowMode: "all", itadKey: ""});
+    const {lowMode: storedMode, itadKey} = await browser.storage.local.get({lowMode: "all", itadKey: ""});
     if (!itadKey) {
         return {needsKey: true};
     }
+    // Callers can opt out of the per-game 1y history calls (e.g. bulk DLC
+    // rows); the cache key must reflect the mode actually served.
+    const lowMode = requestBody.skipY1 ? "all" : storedMode;
 
     const allGameIds = [
         ...requestBody.apps.map((id) => `app/${id}`),
