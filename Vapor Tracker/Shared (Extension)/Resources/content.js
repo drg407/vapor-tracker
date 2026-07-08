@@ -24,9 +24,17 @@
         }
     }
 
+    // --- DLC list ("Content For This Game"): rows are anchors with
+    // id="dlc_row_{appid}" ---
+    const dlcRows = type === "app"
+        ? [...document.querySelectorAll("a.game_area_dlc_row[id^='dlc_row_']")]
+            .map((row) => ({row, appid: Number(row.id.slice(8))}))
+            .filter((d) => Number.isFinite(d.appid))
+        : [];
+
     const body = {
         country,
-        apps: type === "app" ? [id] : [],
+        apps: type === "app" ? [id, ...dlcRows.map((d) => d.appid)] : [],
         subs: [...new Set(boxes.filter((b) => b.gid.startsWith("sub/")).map((b) => Number(b.gid.slice(4))))],
         bundles: [...new Set(boxes.filter((b) => b.gid.startsWith("bundle/")).map((b) => Number(b.gid.slice(7))))],
         voucher: true,
@@ -167,5 +175,27 @@
 
         const wrapper = box.closest(".game_area_purchase_game_wrapper") ?? box;
         wrapper.parentNode.insertBefore(line, wrapper);
+    }
+
+    // --- Inline note per DLC row (plain text: the row is itself a link) ---
+    for (const {row, appid} of dlcRows) {
+        const entry = prices[`app/${appid}`];
+        if (!entry?.lowest && !entry?.current) { continue; }
+
+        const parts = [];
+        if (entry.lowest) {
+            parts.push(`${entry.lowLabel === "1y" ? "1y low" : "low"} <b>${fmt(entry.lowest.price)}</b>`);
+        }
+        if (entry.current) {
+            const rowPriceEl = row.querySelector(".discount_final_price, .game_area_dlc_price");
+            const rowPrice = rowPriceEl ? parseMoney(rowPriceEl.textContent) : null;
+            const cheaper = rowPrice !== null && entry.current.price.amount < rowPrice;
+            parts.push(`now <b>${fmt(entry.current.price)}</b> at ${entry.current.shop.name}${cheaper ? ` <span class="spp_badge">cheaper</span>` : ""}`);
+        }
+
+        const note = document.createElement("span");
+        note.className = "spp_dlc";
+        note.innerHTML = parts.join(" · ");
+        (row.querySelector(".game_area_dlc_name") ?? row).appendChild(note);
     }
 })();

@@ -135,3 +135,16 @@ a.spp_source:hover {
 .spp_boxline {
     margin: 10px 0 2px 0;
 }
+
+/* Inline DLC row note */
+.spp_dlc {
+    margin-left: 10px;
+    font-size: 11px;
+    color: #8f98a0;
+    font-weight: normal;
+}
+
+.spp_dlc b {
+    color: #a4d007;
+    font-weight: bold;
+}

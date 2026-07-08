@@ -65,27 +65,33 @@ async function fetchAllPrices(requestBody) {
         `${ITAD_API}/lookup/id/shop/${ITAD_STEAM_SHOP_ID}/v1?key=${key}`,
         post(gameIds)
     );
-    const uuidToGameId = new Map();
+    // Several Steam ids can map to the same ITAD game (e.g. an app and its
+    // base-game sub) — every requested id must get the entry, so group them.
+    const gidsByUuid = new Map();
     for (const gid of gameIds) {
-        if (lookup[gid]) {
-            uuidToGameId.set(lookup[gid], gid);
+        const uuid = lookup[gid];
+        if (!uuid) {
+            continue;
         }
+        if (!gidsByUuid.has(uuid)) {
+            gidsByUuid.set(uuid, []);
+        }
+        gidsByUuid.get(uuid).push(gid);
     }
-    if (uuidToGameId.size === 0) {
+    if (gidsByUuid.size === 0) {
         for (const gid of gameIds) {
             priceCache.set(cacheKey(gid), {expires: Date.now() + CACHE_TTL_MS, entry: null});
         }
         return {prices};
     }
-    const uuids = [...uuidToGameId.keys()];
+    const uuids = [...gidsByUuid.keys()];
 
     const overview = await fetchJson(
         `${ITAD_API}/games/overview/v2?key=${key}&country=${requestBody.country}`,
         post(uuids)
     );
     for (const p of overview.prices ?? []) {
-        const gid = uuidToGameId.get(p.id);
-        if (gid) {
+        for (const gid of gidsByUuid.get(p.id) ?? []) {
             prices[gid] = p;
         }
     }
@@ -97,7 +103,9 @@ async function fetchAllPrices(requestBody) {
             new Date(Date.now() - 365 * 24 * 3600 * 1000).toISOString().replace(/\.\d{3}Z$/, "Z")
         );
         await Promise.all(uuids.map(async (uuid) => {
-            const gid = uuidToGameId.get(uuid);
+            // Entries are shared objects across gids of the same uuid, so
+            // mutating via the first gid updates every key.
+            const gid = gidsByUuid.get(uuid)?.[0];
             if (!gid || !prices[gid]) {
                 return;
             }
