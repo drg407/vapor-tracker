@@ -155,3 +155,8 @@ a.spp_source:hover {
     color: #a4d007;
     font-weight: bold;
 }
+
+.spp_badge_lead {
+    margin-left: 0;
+    margin-right: 6px;
+}

@@ -61,6 +61,14 @@
         }
 
         let html = "";
+        // Badge leads the line: narrow screens truncate from the end, and
+        // "cheaper" is the one thing that must survive.
+        if (entry.current) {
+            const steam = steamPriceIn(anchor.closest(".Panel"));
+            if (steam !== null && entry.current.price.amount < steam) {
+                html += `<span class="spp_badge spp_badge_lead">cheaper</span>`;
+            }
+        }
         if (entry.lowest) {
             const when = new Date(entry.lowest.timestamp)
                 .toLocaleDateString(undefined, {year: "numeric", month: "short"});
@@ -68,14 +76,9 @@
                 <span class="spp_wl_dim">at ${entry.lowest.shop.name} (${when})</span>`;
         }
         if (entry.current) {
-            const steam = steamPriceIn(anchor.closest(".Panel"));
-            const cheaper = steam !== null && entry.current.price.amount < steam;
             html += `<span class="spp_wl_dim"> · </span>
                 <a href="${entry.current.url}" target="_blank" rel="noopener" class="spp_wl_now">
                     now ${fmt(entry.current.price)} at ${entry.current.shop.name}</a>`;
-            if (cheaper) {
-                html += ` <span class="spp_badge">cheaper</span>`;
-            }
         }
         line.innerHTML = html;
         holder.appendChild(line);
