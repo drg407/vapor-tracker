@@ -47,8 +47,10 @@
     }
 
     function render(anchor, entry) {
+        // The title container is a flex row with its own layout rules —
+        // insert our line as a sibling below it, not as a flex item in it.
         const holder = anchor.parentElement;
-        if (!holder || holder.querySelector(".spp_wl")) { return; }
+        if (!holder || holder.nextElementSibling?.classList?.contains("spp_wl")) { return; }
 
         const line = document.createElement("div");
         line.className = "spp_wl";
@@ -56,7 +58,7 @@
         if (!entry?.lowest && !entry?.current) {
             line.classList.add("spp_wl_none");
             line.textContent = "no price data";
-            holder.appendChild(line);
+            holder.insertAdjacentElement("afterend", line);
             return;
         }
 
@@ -81,7 +83,7 @@
                     now ${fmt(entry.current.price)} at ${entry.current.shop.name}</a>`;
         }
         line.innerHTML = html;
-        holder.appendChild(line);
+        holder.insertAdjacentElement("afterend", line);
     }
 
     function scan() {

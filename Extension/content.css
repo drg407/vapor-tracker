@@ -79,33 +79,24 @@
     color: #fff;
 }
 
-/* Wishlist row price line. Lives inside the title's flex row: shrink this
-   line (never the game title) and truncate with an ellipsis on narrow
-   screens instead of wrapping into the tags below. */
+/* Wishlist row price line: its own block row inserted below the title
+   row, so it never competes with the title for flex space. Single line
+   with end-truncation as a safety net. */
 .spp_wl {
+    display: block;
     font-size: 12px;
     font-family: "Motiva Sans", Arial, sans-serif;
     margin-top: 2px;
     color: #8f98a0;
-    flex: 0 999 auto;
-    min-width: 0;
-    max-width: 55%;
+    max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Narrow screens: wrap the line onto its own full-width row under the
-   title (the title keeps its whole row), and drop the low's shop/date
-   detail so badge + both prices always fit */
+/* Narrow screens: drop the low's shop/date detail so badge + both prices
+   always fit on one line */
 @media (max-width: 700px) {
-    div:has(> .spp_wl) {
-        flex-wrap: wrap;
-    }
-    .spp_wl {
-        flex-basis: 100%;
-        max-width: none;
-    }
     .spp_wl .spp_wl_dim {
         display: none;
     }
@@ -161,7 +152,6 @@ a.spp_source:hover {
 /* Per-purchase-box price strip on store pages */
 .spp_boxline {
     margin: 10px 0 2px 0;
-    max-width: none;
 }
 
 /* Inline DLC row note */
