@@ -17,5 +17,9 @@ xcrun safari-web-extension-converter Extension \
 sed -i '' "s/PRODUCT_BUNDLE_IDENTIFIER = /DEVELOPMENT_TEAM = ${TEAM}; PRODUCT_BUNDLE_IDENTIFIER = /" \
     "Vapor Tracker/Vapor Tracker.xcodeproj/project.pbxproj"
 
+# Replace the converter's placeholder app page with our setup instructions
+cp AppPage/Main.html "Vapor Tracker/Shared (App)/Resources/Base.lproj/Main.html"
+cp AppPage/Style.css "Vapor Tracker/Shared (App)/Resources/Style.css"
+
 xcodebuild -project "Vapor Tracker/Vapor Tracker.xcodeproj" \
     -scheme "Vapor Tracker (macOS)" -configuration Debug build | tail -1

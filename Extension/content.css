@@ -95,9 +95,17 @@
     text-overflow: ellipsis;
 }
 
-/* Narrow screens: drop shop/date detail so the badge and prices fit the
-   half-row the line is allowed */
+/* Narrow screens: wrap the line onto its own full-width row under the
+   title (the title keeps its whole row), and drop the low's shop/date
+   detail so badge + both prices always fit */
 @media (max-width: 700px) {
+    div:has(> .spp_wl) {
+        flex-wrap: wrap;
+    }
+    .spp_wl {
+        flex-basis: 100%;
+        max-width: none;
+    }
     .spp_wl .spp_wl_dim {
         display: none;
     }
