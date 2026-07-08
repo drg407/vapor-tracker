@@ -130,3 +130,8 @@ a.spp_source {
 a.spp_source:hover {
     color: #66c0f4;
 }
+
+/* Per-purchase-box price strip on store pages */
+.spp_boxline {
+    margin: 10px 0 2px 0;
+}

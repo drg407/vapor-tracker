@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  macOS (App)
 //
-//  Created by David Guevara on 7/7/26.
+//  Created by David Guevara on 7/8/26.
 //
 
 import Cocoa
