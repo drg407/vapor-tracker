@@ -47,10 +47,11 @@
     }
 
     function render(anchor, entry) {
-        // The title container is a flex row with its own layout rules —
-        // insert our line as a sibling below it, not as a flex item in it.
+        // The row is a fixed CSS grid (named areas, fixed row heights), so
+        // the line must live inside the title's own cell as a flex sibling
+        // of the title; CSS caps its share so the title always fits.
         const holder = anchor.parentElement;
-        if (!holder || holder.nextElementSibling?.classList?.contains("spp_wl")) { return; }
+        if (!holder || holder.querySelector(".spp_wl")) { return; }
 
         const line = document.createElement("div");
         line.className = "spp_wl";
@@ -58,7 +59,7 @@
         if (!entry?.lowest && !entry?.current) {
             line.classList.add("spp_wl_none");
             line.textContent = "no price data";
-            holder.insertAdjacentElement("afterend", line);
+            holder.appendChild(line);
             return;
         }
 
@@ -80,10 +81,10 @@
         if (entry.current) {
             html += `<span class="spp_wl_dim"> · </span>
                 <a href="${entry.current.url}" target="_blank" rel="noopener" class="spp_wl_now">
-                    now ${fmt(entry.current.price)} at ${entry.current.shop.name}</a>`;
+                    now ${fmt(entry.current.price)}<span class="spp_wl_shop"> at ${entry.current.shop.name}</span></a>`;
         }
         line.innerHTML = html;
-        holder.insertAdjacentElement("afterend", line);
+        holder.appendChild(line);
     }
 
     function scan() {

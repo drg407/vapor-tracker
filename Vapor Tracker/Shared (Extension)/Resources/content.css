@@ -79,25 +79,29 @@
     color: #fff;
 }
 
-/* Wishlist row price line: its own block row inserted below the title
-   row, so it never competes with the title for flex space. Single line
-   with end-truncation as a safety net. */
+/* Wishlist row price line: flex item beside the title, capped at 55% of
+   the row so the title always keeps its space. Steam's wishlist rows are
+   fixed-height grids, so there is no room for an extra line — the price
+   info shares the title row and truncates instead. */
 .spp_wl {
-    display: block;
     font-size: 12px;
     font-family: "Motiva Sans", Arial, sans-serif;
     margin-top: 2px;
+    margin-left: 10px;
     color: #8f98a0;
-    max-width: 100%;
+    flex: 0 999 auto;
+    min-width: 0;
+    max-width: 55%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Narrow screens: drop the low's shop/date detail so badge + both prices
-   always fit on one line */
+/* Narrow screens: drop shop names and dates so badge + both prices fit
+   the capped width */
 @media (max-width: 700px) {
-    .spp_wl .spp_wl_dim {
+    .spp_wl .spp_wl_dim,
+    .spp_wl .spp_wl_shop {
         display: none;
     }
     .spp_wl .spp_wl_now {
