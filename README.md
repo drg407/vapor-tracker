@@ -20,9 +20,13 @@ API using your own free API key. No third-party backend, no tracking.
 
 ## Setup
 
-1. Build and run the app once (see below), then enable **Vapor Tracker** in
-   Safari → Settings → Extensions (iOS: Settings → Apps → Safari → Extensions)
-   and allow it on `steampowered.com`
+1. Build and run the app once (see below), then enable the extension:
+   - **macOS**: Safari → Settings → Extensions → check **Vapor Tracker**,
+     and allow it on the Steam sites when prompted
+   - **iOS**: Open **Settings → Apps → Safari → Extensions → Vapor Tracker**
+     → **Allow Extension**, then allow all three site URLs
+     (`store.steampowered.com`, `steamcommunity.com`,
+     `api.isthereanydeal.com`)
 2. Get a free API key at [isthereanydeal.com/apps/my](https://isthereanydeal.com/apps/my/):
    register an app, then copy the key from the **API Keys** section — *not*
    the OAuth client ID or secret

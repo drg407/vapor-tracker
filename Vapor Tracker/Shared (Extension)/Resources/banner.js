@@ -13,10 +13,8 @@
     };
 
     kill();
-    const observer = new MutationObserver(kill);
-    observer.observe(document.documentElement, {childList: true, subtree: true});
-    addEventListener("DOMContentLoaded", () => {
-        kill();
-        observer.disconnect();
-    }, {once: true});
+    // Steam's React pages (wishlist etc.) inject the meta tag at runtime,
+    // well after DOMContentLoaded — keep watching for the page's lifetime.
+    // The callback is a cheap querySelectorAll; mutations are batched.
+    new MutationObserver(kill).observe(document.documentElement, {childList: true, subtree: true});
 })();

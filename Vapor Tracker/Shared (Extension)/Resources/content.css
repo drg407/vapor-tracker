@@ -79,12 +79,19 @@
     color: #fff;
 }
 
-/* Wishlist row price line */
+/* Wishlist row price line. Lives inside the title's flex row: shrink this
+   line (never the game title) and truncate with an ellipsis on narrow
+   screens instead of wrapping into the tags below. */
 .spp_wl {
     font-size: 12px;
     font-family: "Motiva Sans", Arial, sans-serif;
     margin-top: 2px;
     color: #8f98a0;
+    flex: 0 999 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .spp_wl_low {
