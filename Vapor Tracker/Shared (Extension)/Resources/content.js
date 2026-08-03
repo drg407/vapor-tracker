@@ -55,6 +55,17 @@
         skipY1: true
     };
 
+    // App pages give the purchase block the id #game_area_purchase; bundle
+    // and sub pages use the same block with id game_area_purchase_top /
+    // _bottom, so fall back to the first visible one by class. Without this
+    // the panel lands next to .page_content_ctn, whose parent is the
+    // full-width page grid — a viewport-wide strip above the whole page.
+    function purchaseAnchor() {
+        return document.querySelector("#game_area_purchase")
+            ?? [...document.querySelectorAll(".game_area_purchase")].find((el) => el.offsetParent)
+            ?? document.querySelector(".page_content_ctn");
+    }
+
     // Steam's CSP connect-src blocks direct calls to the API from the page,
     // so the fetch happens in the background script.
     let data, dlcData;
@@ -76,8 +87,7 @@
         setup.innerHTML = `<div class="spp_title">Vapor Tracker <a class="spp_source" href="https://isthereanydeal.com" target="_blank" rel="noopener">via IsThereAnyDeal</a></div>
             <div class="spp_row"><span class="spp_setup">Add your free IsThereAnyDeal API key to see price history —
             click the Vapor Tracker icon in the toolbar to set it up.</span></div>`;
-        const anchor = document.querySelector("#game_area_purchase")
-            ?? document.querySelector(".page_content_ctn");
+        const anchor = purchaseAnchor();
         anchor?.parentNode.insertBefore(setup, anchor);
         return;
     }
@@ -115,9 +125,8 @@
     if (mainEntry) {
         const {current, lowest, urls} = mainEntry;
 
-        const steamEl = document.querySelector(
-            "#game_area_purchase .discount_final_price, #game_area_purchase .game_purchase_price"
-        );
+        const anchor = purchaseAnchor();
+        const steamEl = anchor?.querySelector(".discount_final_price, .game_purchase_price");
         const steam = steamEl ? parseMoney(steamEl.textContent) : null;
 
         const panel = document.createElement("div");
@@ -154,8 +163,6 @@
 
         panel.innerHTML = html;
 
-        const anchor = document.querySelector("#game_area_purchase")
-            ?? document.querySelector(".page_content_ctn");
         if (anchor) {
             anchor.parentNode.insertBefore(panel, anchor);
         }

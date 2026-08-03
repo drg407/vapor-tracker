@@ -30,9 +30,27 @@
         return Number.isFinite(n) ? n : null;
     }
 
+    // One row is one .Panel. Steam points both the title and the
+    // discount/price block at the same /app/ URL, so keep only the first
+    // text-bearing app link per panel — that's the title.
     function titleAnchors() {
-        return [...document.querySelectorAll("a[href*='/app/']")]
-            .filter((a) => a.textContent.trim().length > 1 && a.closest(".Panel"));
+        const seen = new Set();
+        const anchors = [];
+        for (const a of document.querySelectorAll("a[href*='/app/']")) {
+            if (a.textContent.trim().length <= 1) { continue; }
+            const panel = a.closest(".Panel");
+            if (!panel || seen.has(panel)) { continue; }
+            seen.add(panel);
+            anchors.push(a);
+        }
+        return anchors;
+    }
+
+    // The row grid names its areas: title / mid / lower / purchase / remove.
+    // "mid" (My Categories) spans the full row width and is mostly empty.
+    function midAreaOf(panel) {
+        return [...panel.children]
+            .find((c) => getComputedStyle(c).gridArea.startsWith("mid")) ?? null;
     }
 
     function appidOf(anchor) {
@@ -47,11 +65,16 @@
     }
 
     function render(anchor, entry) {
-        // The row is a fixed CSS grid (named areas, fixed row heights), so
-        // the line must live inside the title's own cell as a flex sibling
-        // of the title; CSS caps its share so the title always fits.
-        const holder = anchor.parentElement;
-        if (!holder || holder.querySelector(".spp_wl")) { return; }
+        // The row is a fixed CSS grid with named areas and fixed row
+        // heights, so there is no room for an extra row. The title cell is
+        // content-sized — anything added there shrinks the title — so the
+        // line goes in the roomy "mid" area, falling back to the title cell
+        // if Steam's markup changes.
+        const panel = anchor.closest(".Panel");
+        if (!panel || panel.querySelector(".spp_wl")) { return; }
+
+        const holder = midAreaOf(panel) ?? anchor.parentElement;
+        if (!holder) { return; }
 
         const line = document.createElement("div");
         line.className = "spp_wl";
