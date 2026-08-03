@@ -17,9 +17,19 @@ xcrun safari-web-extension-converter Extension \
 sed -i '' "s/PRODUCT_BUNDLE_IDENTIFIER = /DEVELOPMENT_TEAM = ${TEAM}; PRODUCT_BUNDLE_IDENTIFIER = /" \
     "Vapor Tracker/Vapor Tracker.xcodeproj/project.pbxproj"
 
+# --copy-resources snapshots Extension/ into the wrapper. That second copy
+# goes stale the moment Extension/ is edited, and Xcode builds the snapshot —
+# so a JS fix silently doesn't ship. Replace it with a symlink: one source of
+# truth, and any build picks up the current files.
+rm -rf "Vapor Tracker/Shared (Extension)/Resources"
+ln -s ../../Extension "Vapor Tracker/Shared (Extension)/Resources"
+
 # Replace the converter's placeholder app page with our setup instructions
 cp AppPage/Main.html "Vapor Tracker/Shared (App)/Resources/Base.lproj/Main.html"
 cp AppPage/Style.css "Vapor Tracker/Shared (App)/Resources/Style.css"
 
+# grep, not tail: xcodebuild's last stdout line is blank, so `tail -1` showed
+# nothing and a failed build looked exactly like a successful one. pipefail
+# still aborts the script on a real failure.
 xcodebuild -project "Vapor Tracker/Vapor Tracker.xcodeproj" \
-    -scheme "Vapor Tracker (macOS)" -configuration Debug build | tail -1
+    -scheme "Vapor Tracker (macOS)" -configuration Debug build | grep -E '^\*\* BUILD'

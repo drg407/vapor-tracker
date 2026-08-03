@@ -43,6 +43,11 @@ source lives in `Extension/` (plain JS, no build step).
 ./scripts/generate-project.sh   # regenerate Xcode wrapper + build (macOS)
 ```
 
+`Vapor Tracker/Shared (Extension)/Resources` is a symlink to `Extension/`,
+so a rebuild always ships the current source. (The converter copies the
+files instead; that snapshot went stale and silently shipped old code, hence
+the symlink — `generate-project.sh` restores it after every regenerate.)
+
 Requires Xcode. The script runs `xcrun safari-web-extension-converter`,
 restores the signing team, and builds the macOS app. For iOS, open
 `Vapor Tracker/Vapor Tracker.xcodeproj` and run the "Vapor Tracker (iOS)"
