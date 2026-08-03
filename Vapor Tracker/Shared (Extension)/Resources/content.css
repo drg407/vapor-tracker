@@ -79,19 +79,18 @@
     color: #fff;
 }
 
-/* Wishlist row price line: flex item beside the title, capped at 55% of
-   the row so the title always keeps its space. Steam's wishlist rows are
-   fixed-height grids, so there is no room for an extra line — the price
-   info shares the title row and truncates instead. */
+/* Wishlist row price line: sits in the row's "My Categories" area, which
+   spans the full row width and has space to spare. Steam's wishlist rows
+   are fixed-height grids, so there is no room for an extra line — and the
+   title cell is content-sized, so putting it there squeezes the title. */
 .spp_wl {
     font-size: 12px;
     font-family: "Motiva Sans", Arial, sans-serif;
-    margin-top: 2px;
-    margin-left: 10px;
+    margin-left: 16px;
+    align-self: center;
     color: #8f98a0;
-    flex: 0 999 auto;
+    flex: 0 1 auto;
     min-width: 0;
-    max-width: 55%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
