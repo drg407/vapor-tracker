@@ -140,8 +140,12 @@
                     action: "fetchPrices",
                     body: {country, apps: chunk, subs: [], bundles: [], voucher: true, shops: []}
                 });
-                if (data?.needsKey) {
-                    showKeyBanner();
+                if (data?.needsKey || data?.keyRejected) {
+                    showKeyBanner(data.needsKey
+                        ? `Add your free IsThereAnyDeal API key to see wishlist prices —
+                           click the Vapor Tracker icon in the toolbar to set it up.`
+                        : `IsThereAnyDeal rejected your API key — it may have been regenerated
+                           or revoked. Click the Vapor Tracker icon in the toolbar to update it.`);
                     return;
                 }
                 for (const id of chunk) {
@@ -155,16 +159,15 @@
         scan();
     }
 
-    // Without an API key there's nothing to show; put one banner up top,
-    // stop observing, and let the user set up via the toolbar popup.
-    function showKeyBanner() {
+    // Without a usable API key there's nothing to show; put one banner up
+    // top, stop observing, and let the user fix it via the toolbar popup.
+    function showKeyBanner(message) {
         observer.disconnect();
         if (document.querySelector(".spp_wl_banner")) { return; }
         const banner = document.createElement("div");
         banner.className = "spp_panel spp_wl_banner";
         banner.innerHTML = `<div class="spp_title">Vapor Tracker <a class="spp_source" href="https://isthereanydeal.com" target="_blank" rel="noopener">via IsThereAnyDeal</a></div>
-            <div class="spp_row"><span class="spp_setup">Add your free IsThereAnyDeal API key to see wishlist prices —
-            click the Vapor Tracker icon in the toolbar to set it up.</span></div>`;
+            <div class="spp_row"><span class="spp_setup">${message}</span></div>`;
         document.body.prepend(banner);
     }
 
