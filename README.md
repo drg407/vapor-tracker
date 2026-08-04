@@ -57,6 +57,27 @@ adding/removing files; edits to existing JS/CSS just need a rebuild.
 The icon is drawn in code: `swift scripts/makeicon.swift` regenerates the
 PNG set in `Extension/img/`.
 
+## App Store screenshots
+
+App Store Connect requires exact pixel sizes with no alpha channel: 6.9"
+iPhone (1320×2868), 13" iPad (2064×2752), and Mac at 16:10 (2880×1800).
+Apple scales those down for every smaller device class, so they are the whole
+set. iPad is required because the app ships as `TARGETED_DEVICE_FAMILY = 1,2`.
+
+```bash
+./scripts/screenshots.sh iphone      # capture the booted iPhone simulator
+./scripts/screenshots.sh ipad        # capture the booted iPad simulator
+./scripts/screenshots.sh mac         # capture a selection, pad it to 16:10
+./scripts/screenshots.sh pad <img…>  # pad shots taken by hand (⌘⇧5)
+./scripts/screenshots.sh verify      # check sizes and alpha before uploading
+```
+
+Drive the simulator to the screen you want, then capture — simulator grabs are
+native resolution, so the sizes are exact with no resampling. Mac shots are
+letterboxed onto the canvas, never stretched. Output lands in `screenshots/`
+(git-ignored). `mac` needs Screen Recording permission; without it, capture
+with ⌘⇧5 and use `pad`.
+
 ## How it works
 
 - `content.js` (store pages) and `wishlist.js` find games in the page and ask
