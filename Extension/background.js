@@ -31,7 +31,7 @@ const priceCache = new Map();
 const CACHE_TTL_MS = 60 * 60 * 1000;
 
 async function fetchAllPrices(requestBody) {
-    const {lowMode: storedMode, itadKey} = await browser.storage.local.get({lowMode: "all", itadKey: ""});
+    const {lowMode: storedMode, itadKey} = await loadSettings();
     if (!itadKey) {
         return {needsKey: true};
     }
