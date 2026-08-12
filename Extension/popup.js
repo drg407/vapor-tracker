@@ -11,7 +11,7 @@ function flash(msg) {
 async function save() {
     const lowMode = radios.find((r) => r.checked)?.value ?? "all";
     const itadKey = keyInput.value.trim();
-    await browser.storage.local.set({lowMode, itadKey});
+    await saveSettings({lowMode, itadKey});
     if (!itadKey) {
         status.textContent = "An API key is required for price data";
         return false;
@@ -20,7 +20,7 @@ async function save() {
     return true;
 }
 
-browser.storage.local.get({lowMode: "all", itadKey: ""}).then(({lowMode, itadKey}) => {
+loadSettings().then(({lowMode, itadKey}) => {
     radios.forEach((r) => { r.checked = r.value === lowMode; });
     keyInput.value = itadKey;
 });

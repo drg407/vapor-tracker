@@ -14,7 +14,7 @@
         "512": "img/icon512.png"
     },
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["settings.js", "background.js"]
     },
     "permissions": ["storage"],
     "action": {

@@ -4,10 +4,18 @@ const ITAD_STEAM_SHOP_ID = 61;
 async function fetchJson(url, options) {
     const res = await fetch(url, options);
     if (!res.ok) {
-        throw new Error(`${url} responded ${res.status}`);
+        const err = new Error(`${url} responded ${res.status}`);
+        err.status = res.status;
+        throw err;
     }
     return res.json();
 }
+
+// ITAD answers 401/403 when a key is wrong, regenerated, or revoked. That is
+// user-fixable, so it travels back to the page like needsKey instead of
+// surfacing as a generic failure the content script can only swallow — which
+// left pages showing nothing at all, with no hint the key was the problem.
+const isKeyRejected = (err) => err?.status === 401 || err?.status === 403;
 
 function post(body) {
     return {
@@ -31,7 +39,7 @@ const priceCache = new Map();
 const CACHE_TTL_MS = 60 * 60 * 1000;
 
 async function fetchAllPrices(requestBody) {
-    const {lowMode: storedMode, itadKey} = await browser.storage.local.get({lowMode: "all", itadKey: ""});
+    const {lowMode: storedMode, itadKey} = await loadSettings();
     if (!itadKey) {
         return {needsKey: true};
     }
@@ -151,5 +159,12 @@ browser.runtime.onMessage.addListener((message) => {
     if (message?.action !== "fetchPrices") {
         return;
     }
-    return fetchAllPrices(message.body);
+    // One place to catch it: the lookup and overview calls both authenticate,
+    // and either can be the first to see a rejected key.
+    return fetchAllPrices(message.body).catch((err) => {
+        if (isKeyRejected(err)) {
+            return {keyRejected: true};
+        }
+        throw err;
+    });
 });

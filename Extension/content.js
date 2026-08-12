@@ -81,12 +81,16 @@
         return;
     }
 
-    if (data?.needsKey) {
+    if (data?.needsKey || data?.keyRejected) {
+        const message = data.needsKey
+            ? `Add your free IsThereAnyDeal API key to see price history —
+               click the Vapor Tracker icon in the toolbar to set it up.`
+            : `IsThereAnyDeal rejected your API key — it may have been regenerated or revoked.
+               Click the Vapor Tracker icon in the toolbar to update it.`;
         const setup = document.createElement("div");
         setup.className = "spp_panel";
         setup.innerHTML = `<div class="spp_title">Vapor Tracker <a class="spp_source" href="https://isthereanydeal.com" target="_blank" rel="noopener">via IsThereAnyDeal</a></div>
-            <div class="spp_row"><span class="spp_setup">Add your free IsThereAnyDeal API key to see price history —
-            click the Vapor Tracker icon in the toolbar to set it up.</span></div>`;
+            <div class="spp_row"><span class="spp_setup">${message}</span></div>`;
         const anchor = purchaseAnchor();
         anchor?.parentNode.insertBefore(setup, anchor);
         return;
