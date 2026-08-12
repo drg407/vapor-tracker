@@ -57,6 +57,26 @@ adding/removing files; edits to existing JS/CSS just need a rebuild.
 The icon is drawn in code: `swift scripts/makeicon.swift` regenerates the
 PNG set in `Extension/img/`.
 
+## App Store submission
+
+Privacy policy: <https://davidguevara.dev/vaportracker/privacy> (source lives in
+the `davidguevara-site` repo, which deploys by FTP on push to `main`).
+
+Set in `generate-project.sh`, because the Xcode project is generated and
+anything set in Xcode's UI is discarded on the next regenerate:
+
+- `LSApplicationCategoryType` — `public.app-category.utilities`. Mac App Store
+  validation rejects a build without it.
+- `ITSAppUsesNonExemptEncryption` — `NO`. HTTPS through Apple's stack is exempt;
+  without the key every upload re-asks the export-compliance question.
+- `NSHumanReadableCopyright`, `DEVELOPMENT_TEAM`.
+
+Version lives in two places that must agree: `MARKETING_VERSION` in the
+generated project and `"version"` in `Extension/manifest.json` (both `1.0`).
+
+Signing is `CODE_SIGN_STYLE = Automatic`, so archiving picks the distribution
+certificate without further setup.
+
 ## App Store screenshots
 
 App Store Connect requires exact pixel sizes with no alpha channel: 6.9"

@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Vapor Tracker",
-    "version": "0.1",
+    "version": "1.0",
     "description": "Shows historical low and current best price from other stores on Steam pages (IsThereAnyDeal data).",
     "icons": {
         "16": "img/icon16.png",
