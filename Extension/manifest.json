@@ -14,7 +14,8 @@
         "512": "img/icon512.png"
     },
     "background": {
-        "scripts": ["settings.js", "background.js"]
+        "scripts": ["settings.js", "background.js"],
+        "persistent": false
     },
     "permissions": ["storage"],
     "action": {
