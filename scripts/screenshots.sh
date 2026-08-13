@@ -7,6 +7,7 @@
 #   ./scripts/screenshots.sh ipad        capture the booted iPad simulator
 #   ./scripts/screenshots.sh mac         capture a selection, pad it to 16:10
 #   ./scripts/screenshots.sh pad <img…>  pad shots you already took, to 16:10
+#   ./scripts/screenshots.sh import iphone|ipad <img…>   conform device shots
 #   ./scripts/screenshots.sh verify      check everything in screenshots/
 #
 # Simulator grabs are already native-resolution, so they need no resizing —
@@ -22,7 +23,11 @@ IPHONE_SIM="iPhone 16 Pro Max"       # 6.9" class
 IPHONE_W=1320; IPHONE_H=2868
 IPAD_SIM="iPad Pro 13-inch (M4)"     # 13" class
 IPAD_W=2064;  IPAD_H=2752
-MAC_W=2880;   MAC_H=1800             # 16:10; also valid: 1280x800 1440x900 2560x1600
+
+# 16:10; also valid: 1280x800 1440x900 2560x1600. Override when the sources are
+# non-Retina grabs — padding a small shot onto the big canvas only upscales blur.
+#   MAC_W=1440 MAC_H=900 ./scripts/screenshots.sh pad shot.jpg
+MAC_W="${MAC_W:-2880}"; MAC_H="${MAC_H:-1800}"
 
 dims() { echo "$(sips -g pixelWidth -g pixelHeight "$1" | awk '/pixelWidth/{w=$2}/pixelHeight/{h=$2}END{print w"x"h}')"; }
 
@@ -36,6 +41,17 @@ flatten() {
     fi
 }
 
+assert_size() {
+    local f="$1" cw="$2" ch="$3"
+    local got="$(dims "$f")"
+    if [[ "$got" != "${cw}x${ch}" ]]; then
+        echo "✗ $f is $got, expected ${cw}x${ch}" >&2
+        exit 1
+    fi
+    flatten "$f"
+    echo "✓ $f  ($got)"
+}
+
 shoot_sim() {
     local name="$1" w="$2" h="$3" slug="$4"
     if ! xcrun simctl list devices booted | grep -q "$name"; then
@@ -46,10 +62,7 @@ shoot_sim() {
         # too early is a black frame.
         sleep 12
     fi
-    mkdir -p "$OUT/$slug"
-    local n=1
-    while [[ -e "$OUT/$slug/$(printf '%02d' $n).png" ]]; do n=$((n + 1)); done
-    local f="$OUT/$slug/$(printf '%02d' $n).png"
+    local f="$(next_path "$slug")"
     xcrun simctl io "$name" screenshot "$f" >/dev/null 2>&1
     local got="$(dims "$f")"
     if [[ "$got" != "${w}x${h}" ]]; then
@@ -60,42 +73,90 @@ shoot_sim() {
     echo "✓ $f  ($got)"
 }
 
-next_mac_path() {
-    mkdir -p "$OUT/mac"
+next_path() {
+    local slug="$1"
+    mkdir -p "$OUT/$slug"
     local n=1
-    while [[ -e "$OUT/mac/$(printf '%02d' $n).png" ]]; do n=$((n + 1)); done
-    echo "$OUT/mac/$(printf '%02d' $n).png"
+    while [[ -e "$OUT/$slug/$(printf '%02d' $n).png" ]]; do n=$((n + 1)); done
+    echo "$OUT/$slug/$(printf '%02d' $n).png"
 }
 
 # Fit inside the canvas, then pad. Scaling to fill would crop; stretching would
-# distort — Apple's 16:10 is rarely the shape of a window.
-fit_to_mac_canvas() {
-    local f="$1"
+# distort — Apple's canvas is rarely the shape of what you captured.
+fit_and_pad() {
+    local f="$1" cw="$2" ch="$3"
     local d="$(dims "$f")" w h
     w="${d%x*}"; h="${d#*x}"
-    if (( w * MAC_H > h * MAC_W )); then
-        sips --resampleWidth $MAC_W "$f" >/dev/null
+    if (( w * ch > h * cw )); then
+        sips --resampleWidth $cw "$f" >/dev/null
     else
-        sips --resampleHeight $MAC_H "$f" >/dev/null
+        sips --resampleHeight $ch "$f" >/dev/null
     fi
-    sips -p $MAC_H $MAC_W --padColor "$PAD_COLOR" "$f" >/dev/null 2>&1  # --padColor logs a CGColor dump
+    sips -p $ch $cw --padColor "$PAD_COLOR" "$f" >/dev/null 2>&1  # --padColor logs a CGColor dump
+    assert_size "$f" $cw $ch
+}
 
-    local got="$(dims "$f")"
-    if [[ "$got" != "${MAC_W}x${MAC_H}" ]]; then
-        echo "✗ $f is $got, expected ${MAC_W}x${MAC_H}" >&2
-        exit 1
+# What to do when the aspect genuinely differs. `pad` is honest but leaves bars
+# down the sides, which looks wrong next to a natively-sized shot in the same
+# set; `crop` scales to fill and trims the overflow instead. Cropping is
+# anchored at the top — a centered crop would eat the status bar.
+#   FIT=crop ./scripts/screenshots.sh import ipad shot.png
+FIT="${FIT:-pad}"
+
+fit_and_crop() {
+    local f="$1" cw="$2" ch="$3"
+    local d="$(dims "$f")" w h
+    w="${d%x*}"; h="${d#*x}"
+    if (( w * ch < h * cw )); then
+        sips --resampleWidth $cw "$f" >/dev/null
+    else
+        sips --resampleHeight $ch "$f" >/dev/null
     fi
-    flatten "$f"
-    echo "✓ $f  ($got)"
+    # Not sips: its --cropOffset is accepted and then ignored, so it can only
+    # crop centered — which trims the status bar and URL bar off the top.
+    swift "$SCRIPT_DIR/crop-png.swift" "$f" 0 0 $cw $ch
+    assert_size "$f" $cw $ch
+}
+
+# A device screenshot is a different pixel size than the App Store class it
+# belongs to — an iPhone 16 Pro is 1206x2622 where the 6.9" slot wants
+# 1320x2868. Those aspect ratios agree to 0.05%, far below anything the eye
+# resolves, so a straight resample beats letterboxing. Only genuinely
+# mismatched shapes get padded (or cropped, with FIT=crop).
+ASPECT_TOL="0.01"   # 1% — a 1320x2868 canvas would tolerate ~14px of skew
+
+conform() {
+    local f="$1" cw="$2" ch="$3"
+    local d="$(dims "$f")" w h
+    w="${d%x*}"; h="${d#*x}"
+    local skew="$(awk -v a=$((w)) -v b=$((h)) -v c=$cw -v e=$ch \
+        'BEGIN{r=(a/b)/(c/e); if(r<1)r=1/r; printf "%.4f", r-1}')"
+    if awk -v s="$skew" -v t="$ASPECT_TOL" 'BEGIN{exit !(s<=t)}'; then
+        sips -z $ch $cw "$f" >/dev/null          # -z takes height then width
+        assert_size "$f" $cw $ch
+    else
+        printf 'aspect off by %.1f%%, %s instead of stretching\n' \
+            "$(awk -v s="$skew" 'BEGIN{print s*100}')" \
+            "$([[ "$FIT" == crop ]] && echo cropping || echo letterboxing)"
+        if [[ "$FIT" == crop ]]; then
+            fit_and_crop "$f" $cw $ch
+        else
+            fit_and_pad "$f" $cw $ch
+        fi
+    fi
 }
 
 shoot_mac() {
-    local f="$(next_mac_path)"
+    local f="$(next_path mac)"
     echo "Select a region, or press space then click a window…"
     screencapture -o -i "$f"          # -o: no window shadow (it carries alpha)
     [[ -f "$f" ]] || { echo "cancelled"; exit 1; }
-    fit_to_mac_canvas "$f"
+    fit_and_pad "$f" $MAC_W $MAC_H
 }
+
+# Re-encode rather than copy: a JPEG under a .png name is still JPEG bytes,
+# and App Store Connect rejects the mismatch.
+adopt() { sips -s format png "$1" --out "$2" >/dev/null; }
 
 # For shots taken by hand (⌘⇧5) — or when Screen Recording permission is off,
 # which makes `mac` fail without capturing anything.
@@ -103,9 +164,29 @@ pad_existing() {
     (( $# )) || { echo "usage: screenshots.sh pad <image> …" >&2; exit 2; }
     for src in "$@"; do
         [[ -f "$src" ]] || { echo "no such file: $src" >&2; exit 1; }
-        local f="$(next_mac_path)"
-        cp "$src" "$f"
-        fit_to_mac_canvas "$f"
+        local f="$(next_path mac)"
+        adopt "$src" "$f"
+        fit_and_pad "$f" $MAC_W $MAC_H
+    done
+}
+
+# Real-device screenshots (AirDropped from an iPhone/iPad) rather than
+# simulator grabs — a 16 Pro or a non-Pro iPad is the wrong pixel size for the
+# App Store class, so conform them.
+import_device() {
+    local slug="${1:-}"; shift 2>/dev/null || true
+    local w h
+    case "$slug" in
+        iphone) w=$IPHONE_W; h=$IPHONE_H ;;
+        ipad)   w=$IPAD_W;   h=$IPAD_H ;;
+        *) echo "usage: screenshots.sh import <iphone|ipad> <image> …" >&2; exit 2 ;;
+    esac
+    (( $# )) || { echo "usage: screenshots.sh import $slug <image> …" >&2; exit 2; }
+    for src in "$@"; do
+        [[ -f "$src" ]] || { echo "no such file: $src" >&2; exit 1; }
+        local f="$(next_path "$slug")"
+        adopt "$src" "$f"
+        conform "$f" $w $h
     done
 }
 
@@ -135,6 +216,7 @@ case "${1:-}" in
     ipad)   shoot_sim "$IPAD_SIM"   $IPAD_W   $IPAD_H   ipad ;;
     mac)    shoot_mac ;;
     pad)    shift; pad_existing "$@" ;;
+    import) shift; import_device "$@" ;;
     verify) verify ;;
-    *) sed -n '2,13p' "$0"; exit 1 ;;
+    *) sed -n '2,14p' "$0"; exit 1 ;;
 esac

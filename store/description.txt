@@ -1,0 +1,39 @@
+Steam tells you a game is 40% off. It doesn't tell you it was 70% off last spring, or that another store is selling it cheaper right now.
+
+Vapor Tracker is a Safari extension that puts that missing context directly on the page. Open any Steam store page and a compact panel appears above the purchase box, showing the game's historical low and the best current price across dozens of stores. If somewhere is beating Steam today, it says so.
+
+No new app to check. No tab to switch to. The information is simply there, at the moment you're deciding whether to buy.
+
+
+WHAT YOU GET
+
+• Historical low: the lowest price a game has ever reached, with the store and the date it happened
+• Current best price: the cheapest offer available right now, linked straight to that store
+• "Cheaper than Steam" badge: an at-a-glance flag when another store undercuts Steam
+• Wishlist support: every row on your Steam wishlist gets its own compact price line
+• DLC, bundles and editions: priced individually, not just the base game
+• All-time or past-year lows: toggle between them in the toolbar popup
+• Your storefront: prices follow your Steam country and currency automatically
+• Full price history: one click through to the complete chart
+
+
+REQUIRES A FREE API KEY
+
+Vapor Tracker uses the official IsThereAnyDeal API, and IsThereAnyDeal issues each user their own free key. Setup takes about a minute: register an app at isthereanydeal.com/apps/my, copy the key, and paste it into the Vapor Tracker popup.
+
+This is a deliberate design choice. It means there is no middleman server between you and the price data. Your requests go directly from your device to IsThereAnyDeal, using your own key.
+
+
+PRIVACY
+
+There is no analytics, no tracking, and no account. Vapor Tracker has no backend of its own, so nothing about your browsing is collected, stored, or sold. The only network requests it makes are to IsThereAnyDeal, to look up prices for the page you're already looking at.
+
+Your API key is stored by Safari on your device and is sent only to IsThereAnyDeal, to authenticate the price lookups you asked for.
+
+
+FREE, ON EVERY DEVICE
+
+Vapor Tracker is free, with no ads, no subscriptions, and no in-app purchases. It is a universal app: install it once and it works in Safari on Mac, iPhone, and iPad.
+
+
+Price data provided by IsThereAnyDeal. Vapor Tracker is an independent project and is not affiliated with, endorsed by, or sponsored by Valve Corporation, Steam, or IsThereAnyDeal.

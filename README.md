@@ -89,8 +89,23 @@ set. iPad is required because the app ships as `TARGETED_DEVICE_FAMILY = 1,2`.
 ./scripts/screenshots.sh ipad        # capture the booted iPad simulator
 ./scripts/screenshots.sh mac         # capture a selection, pad it to 16:10
 ./scripts/screenshots.sh pad <img…>  # pad shots taken by hand (⌘⇧5)
+./scripts/screenshots.sh import iphone|ipad <img…>   # conform device shots
 ./scripts/screenshots.sh verify      # check sizes and alpha before uploading
 ```
+
+`import` is for screenshots off a real device rather than a simulator: those
+are the device's pixel size, not the App Store class's (an iPhone 16 Pro is
+1206×2622 where the 6.9" slot wants 1320×2868). Aspect ratios within 1% are
+resampled straight across; anything further off is letterboxed, or cropped
+from the top with `FIT=crop`. `MAC_W`/`MAC_H` override the Mac canvas — worth
+dropping to 1440×900 when the sources are non-Retina, since padding a small
+shot onto the big canvas only upscales the blur.
+
+Two helpers back this up, both operating in place: `crop-png.swift` crops to an
+explicit top-left-origin rectangle (`sips` accepts `--cropOffset` and then
+ignores it, so it can only crop centered), and `mask-png.swift` paints
+rectangles over regions — personal data in a browser screenshot, say — with a
+`--sample` mode to read the exact background color to fill with.
 
 Drive the simulator to the screen you want, then capture — simulator grabs are
 native resolution, so the sizes are exact with no resampling. Mac shots are

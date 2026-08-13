@@ -1,0 +1,51 @@
+App Store Connect listing copy for Vapor Tracker.
+Description lives separately in store/description.txt (4000 char limit).
+
+
+PROMOTIONAL TEXT (170 max, editable without a new build) — 149
+
+Free Steam price history, right on the page. See the lowest a game has ever been and where it's cheaper right now, without leaving the store.
+
+
+SUBTITLE (30 max) — 26
+
+Steam price history inline
+
+
+KEYWORDS (100 max, comma separated, no spaces) — 78
+
+deals,discount,pricehistory,gamedeals,wishlist,sale,tracker,pcgaming,itad,cheap
+
+
+SUPPORT URL
+
+https://davidguevara.dev/vaportracker/privacy
+
+
+PRIVACY POLICY URL
+
+https://davidguevara.dev/vaportracker/privacy
+
+
+APP REVIEW NOTES
+
+Vapor Tracker is a Safari extension. It shows no UI of its own until it is
+enabled in Safari and given a free IsThereAnyDeal API key. To test:
+
+1. Enable the extension:
+   macOS: Safari > Settings > Extensions > Vapor Tracker
+   iOS/iPadOS: Settings > Apps > Safari > Extensions > Vapor Tracker
+2. Allow it on all three sites when prompted:
+   store.steampowered.com, steamcommunity.com, api.isthereanydeal.com
+3. Click the Vapor Tracker toolbar icon and paste this API key:
+   <PASTE A DEDICATED REVIEW KEY HERE>
+4. Visit any Steam store page, for example:
+   https://store.steampowered.com/app/1245620/
+   A "Vapor Tracker" panel appears above the purchase box, showing the
+   historical low and the current best price across stores.
+5. A Steam wishlist page shows the same information per row.
+
+The API key is issued free by IsThereAnyDeal at isthereanydeal.com/apps/my.
+It identifies the app to their API and is not a user account credential.
+Price data is fetched directly from IsThereAnyDeal; the app has no backend
+and collects no data.

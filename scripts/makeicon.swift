@@ -8,18 +8,24 @@ let outDir = "Extension/img"
 
 try FileManager.default.createDirectory(atPath: outDir, withIntermediateDirectories: true)
 
-func draw(size: Int) -> NSBitmapImageRep {
+// fullBleed draws the iOS App Store icon: edge-to-edge and fully opaque.
+// iOS applies its own rounded mask, so shipping the macOS squircle there would
+// render inset inside a second set of corners — and App Store Connect rejects
+// any alpha channel in the icon outright (ITMS-90717).
+func draw(size: Int, fullBleed: Bool = false) -> NSBitmapImageRep {
     let s = CGFloat(size)
     let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: size, pixelsHigh: size,
-                               bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+                               bitsPerSample: 8, samplesPerPixel: fullBleed ? 3 : 4,
+                               hasAlpha: !fullBleed, isPlanar: false,
                                colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
     NSGraphicsContext.saveGraphicsState()
     NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
 
-    // Squircle background with macOS-style margins
-    let inset = s * 0.05
+    // Squircle background with macOS-style margins; square and edge-to-edge for iOS
+    let inset = fullBleed ? 0 : s * 0.05
     let bgRect = NSRect(x: inset, y: inset, width: s - 2 * inset, height: s - 2 * inset)
-    let bg = NSBezierPath(roundedRect: bgRect, xRadius: s * 0.2, yRadius: s * 0.2)
+    let radius = fullBleed ? 0 : s * 0.2
+    let bg = NSBezierPath(roundedRect: bgRect, xRadius: radius, yRadius: radius)
     let gradient = NSGradient(starting: NSColor(calibratedRed: 0x2a/255, green: 0x47/255, blue: 0x5e/255, alpha: 1),
                               ending: NSColor(calibratedRed: 0x16/255, green: 0x20/255, blue: 0x2d/255, alpha: 1))!
     gradient.draw(in: bg, angle: -90)
@@ -63,6 +69,17 @@ for size in sizes {
     let rep = draw(size: size)
     let png = rep.representation(using: .png, properties: [:])!
     let path = "\(outDir)/icon\(size).png"
+    try png.write(to: URL(fileURLWithPath: path))
+    print("wrote \(path)")
+}
+
+// The iOS entries in AppIcon.appiconset all point at this one file. The mac
+// entries use their own mac-icon-*.png and keep the inset squircle.
+let appIconDir = "Vapor Tracker/Shared (App)/Assets.xcassets/AppIcon.appiconset"
+if FileManager.default.fileExists(atPath: appIconDir) {
+    let rep = draw(size: 1024, fullBleed: true)
+    let png = rep.representation(using: .png, properties: [:])!
+    let path = "\(appIconDir)/universal-icon-1024@1x.png"
     try png.write(to: URL(fileURLWithPath: path))
     print("wrote \(path)")
 }
