@@ -14,12 +14,18 @@ try FileManager.default.createDirectory(atPath: outDir, withIntermediateDirector
 // any alpha channel in the icon outright (ITMS-90717).
 func draw(size: Int, fullBleed: Bool = false) -> NSBitmapImageRep {
     let s = CGFloat(size)
+    // Always 32-bit: NSGraphicsContext(bitmapImageRep:) returns nil for a 24-bit
+    // rep, and assigning that nil to .current discards every drawing call and
+    // leaves a black square. Alpha is stripped at write time instead, by
+    // opaquePNG below.
     let rep = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: size, pixelsHigh: size,
-                               bitsPerSample: 8, samplesPerPixel: fullBleed ? 3 : 4,
-                               hasAlpha: !fullBleed, isPlanar: false,
+                               bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
                                colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
     NSGraphicsContext.saveGraphicsState()
-    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
+    guard let ctx = NSGraphicsContext(bitmapImageRep: rep) else {
+        fatalError("no graphics context for \(size)x\(size) rep")
+    }
+    NSGraphicsContext.current = ctx
 
     // Squircle background with macOS-style margins; square and edge-to-edge for iOS
     let inset = fullBleed ? 0 : s * 0.05
@@ -73,13 +79,25 @@ for size in sizes {
     print("wrote \(path)")
 }
 
+// Re-encodes without an alpha channel, which App Store Connect requires of the
+// iOS icon (ITMS-90717). The full-bleed art already covers every pixel, so
+// compositing onto black changes nothing that is visible.
+func opaquePNG(_ rep: NSBitmapImageRep) -> Data {
+    let image = rep.cgImage!
+    let context = CGContext(data: nil, width: image.width, height: image.height,
+                            bitsPerComponent: 8, bytesPerRow: 0,
+                            space: CGColorSpaceCreateDeviceRGB(),
+                            bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
+    context.draw(image, in: CGRect(x: 0, y: 0, width: image.width, height: image.height))
+    let opaque = NSBitmapImageRep(cgImage: context.makeImage()!)
+    return opaque.representation(using: .png, properties: [:])!
+}
+
 // The iOS entries in AppIcon.appiconset all point at this one file. The mac
 // entries use their own mac-icon-*.png and keep the inset squircle.
 let appIconDir = "Vapor Tracker/Shared (App)/Assets.xcassets/AppIcon.appiconset"
 if FileManager.default.fileExists(atPath: appIconDir) {
-    let rep = draw(size: 1024, fullBleed: true)
-    let png = rep.representation(using: .png, properties: [:])!
     let path = "\(appIconDir)/universal-icon-1024@1x.png"
-    try png.write(to: URL(fileURLWithPath: path))
+    try opaquePNG(draw(size: 1024, fullBleed: true)).write(to: URL(fileURLWithPath: path))
     print("wrote \(path)")
 }
