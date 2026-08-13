@@ -7,7 +7,7 @@
 #   ./scripts/screenshots.sh ipad        capture the booted iPad simulator
 #   ./scripts/screenshots.sh mac         capture a selection, pad it to 16:10
 #   ./scripts/screenshots.sh pad <img…>  pad shots you already took, to 16:10
-#   ./scripts/screenshots.sh import iphone|ipad <img…>   conform device shots
+#   ./scripts/screenshots.sh import iphone|iphone65|ipad <img…>  conform shots
 #   ./scripts/screenshots.sh verify      check everything in screenshots/
 #
 # Simulator grabs are already native-resolution, so they need no resizing —
@@ -21,6 +21,9 @@ PAD_COLOR="1B2838"   # Steam's page background, so letterboxing reads as intent
 
 IPHONE_SIM="iPhone 16 Pro Max"       # 6.9" class
 IPHONE_W=1320; IPHONE_H=2868
+# App Store Connect keeps a separate 6.5" slot and rejects 6.9" images in it.
+# Same shots, conformed: the two classes differ by 0.4% in aspect.
+IPHONE65_W=1284; IPHONE65_H=2778
 IPAD_SIM="iPad Pro 13-inch (M4)"     # 13" class
 IPAD_W=2064;  IPAD_H=2752
 
@@ -177,9 +180,10 @@ import_device() {
     local slug="${1:-}"; shift 2>/dev/null || true
     local w h
     case "$slug" in
-        iphone) w=$IPHONE_W; h=$IPHONE_H ;;
-        ipad)   w=$IPAD_W;   h=$IPAD_H ;;
-        *) echo "usage: screenshots.sh import <iphone|ipad> <image> …" >&2; exit 2 ;;
+        iphone)   w=$IPHONE_W;   h=$IPHONE_H ;;
+        iphone65) w=$IPHONE65_W; h=$IPHONE65_H ;;
+        ipad)     w=$IPAD_W;     h=$IPAD_H ;;
+        *) echo "usage: screenshots.sh import <iphone|iphone65|ipad> <image> …" >&2; exit 2 ;;
     esac
     (( $# )) || { echo "usage: screenshots.sh import $slug <image> …" >&2; exit 2; }
     for src in "$@"; do
@@ -198,6 +202,7 @@ verify() {
         local d="$(dims "$f")" a="$(sips -g hasAlpha "$f" | awk '/hasAlpha/{print $2}')" ok=""
         case "$f:$d" in
             */iphone/*:${IPHONE_W}x${IPHONE_H}|*/iphone/*:${IPHONE_H}x${IPHONE_W}) ok=1 ;;
+            */iphone65/*:${IPHONE65_W}x${IPHONE65_H}|*/iphone65/*:${IPHONE65_H}x${IPHONE65_W}) ok=1 ;;
             */ipad/*:${IPAD_W}x${IPAD_H}|*/ipad/*:${IPAD_H}x${IPAD_W}) ok=1 ;;
             */mac/*:2880x1800|*/mac/*:2560x1600|*/mac/*:1440x900|*/mac/*:1280x800) ok=1 ;;
         esac
